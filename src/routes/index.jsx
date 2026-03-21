@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import Sidebar from "../components/sidebar";
+import Sidebar from "../components/Sidebar";
 import DashboardPage from "../pages/DashboardPage";
-import Transacoes from "../components/transacoes/transacoes";
+import Transacoes from "../components/transacoes/Transacoes";
 import { Navigate } from "react-router-dom";
 import Metas from "../components/metas/Metas";
 import Categorias from "../components/categorias/Categorias";
