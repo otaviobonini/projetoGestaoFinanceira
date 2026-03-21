@@ -1,4 +1,3 @@
-import Sidebar from "./components/sidebar";
 import TransactionProvider from "./store/transctionsContext";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/index";
