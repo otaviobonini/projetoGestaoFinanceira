@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
 import UltimasTransacoes from "../visaoGeral/UltimasTransacoes";
-import NovoSaldo from "./adicionarSaldo";
+import NovoSaldo from "./AdicionarSaldo";
 
 export default function Transacoes() {
   const { transacoes, metas } = useContext(TransactionContext);
