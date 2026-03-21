@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
 import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,9 +8,12 @@ export default function VisaoGastosTotais() {
     .map((cat) => cat.orcamento)
     .reduce((acc, curr) => acc + curr, 0);
 
-  const gastoTotal = transacoes
-    .filter((t) => t.tipo === "saida")
-    .reduce((acc, t) => acc + t.valor, 0);
+  const gastoTotal = useMemo(() => {
+    const categoriaId = categorias.map((categoria) => categoria.id);
+    return transacoes
+      .filter((t) => t.tipo === "saida" && categoriaId.includes(t.categoriaId))
+      .reduce((acc, t) => acc + t.valor, 0);
+  }, [transacoes, categorias]);
   let barColor = "";
   let textColor = "";
   const percent = orcamentoTotal > 0 ? (gastoTotal / orcamentoTotal) * 100 : 0;
