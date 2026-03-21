@@ -17,6 +17,7 @@ export default function UltimasTransacoes() {
               <th className="px-6 py-4">Valor</th>
               <th className="px-6 py-4">Operação</th>
               <th className="px-6 py-4">Categoria</th>
+              <th className="px-6 py-4">Detalhes</th>
               <th className="px-6 py-4">Data</th>
             </tr>
           </thead>
@@ -38,6 +39,7 @@ export default function UltimasTransacoes() {
                       {item.categoria?.nome || "Saldo"}
                     </span>
                   </td>
+                  <td className="px-6 py-4 capitalize">{item.descricao}</td>
                   <td className="px-6 py-4 text-gray-500">
                     {new Date(item.createdAt).toLocaleDateString("pt-BR")}
                   </td>

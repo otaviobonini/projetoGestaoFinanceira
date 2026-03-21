@@ -55,7 +55,7 @@ export default function TransactionProvider({ children }) {
     fetchData();
   }, [token]);
 
-  async function addTransacao(valor, categoriaNome, tipo) {
+  async function addTransacao(valor, categoriaNome, tipo, descricao) {
     if (valor === undefined || valor <= 0) {
       return;
     }
@@ -77,6 +77,7 @@ export default function TransactionProvider({ children }) {
           valor: valorNumerico,
           categoriaNome,
           tipo,
+          descricao,
         }),
       });
       const data = await res.json();

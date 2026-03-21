@@ -7,10 +7,12 @@ export default function NovaTransacao() {
   const { addTransacao, categorias } = useContext(TransactionContext);
   const valor = useRef();
   const categoria = useRef();
+  const descricao = useRef();
   function handleSubmit() {
     const valorInput = valor.current.value;
+    const descricaoInput = descricao.current.value;
     const categoriaInput = categoria.current.value;
-    addTransacao(valorInput, categoriaInput, tipo);
+    addTransacao(valorInput, categoriaInput, tipo, descricaoInput);
   }
 
   return (
@@ -60,6 +62,12 @@ export default function NovaTransacao() {
               ref={valor}
               type="number"
               placeholder="Digite o valor da transação"
+              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+            />{" "}
+            <input
+              ref={descricao}
+              type="text"
+              placeholder="Digite os detalhes da transação"
               className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
             />{" "}
             <p className="mt-4">Insira a categoria da transação</p>{" "}
