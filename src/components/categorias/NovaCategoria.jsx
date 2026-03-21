@@ -24,7 +24,7 @@ export default function NovaCategoria() {
 
   return (
     <>
-      <div className="bg-gray-200 p-4 flex flex-col items-center w-2/3 justify-center rounded-2xl border-2 border-dashed border-gray-300">
+      <div className="bg-gray-200 p-4 flex flex-col items-center max-w-fit  justify-center rounded-2xl border-2 border-dashed border-gray-300">
         <button
           className="bg-white font-medium text-black text-lg py-3 px-4 rounded-full hover:bg-green-400"
           onClick={() => setShowForm(true)}
@@ -37,42 +37,43 @@ export default function NovaCategoria() {
         </p>
       </div>
       {showForm && (
-        <dialog
-          open
-          className="bg-white h-52 p-6 rounded-lg shadow-lg mt-4 absolute backdrop-blur-sm"
-        >
-          <p>Insira o nome da nova categoria</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
+          <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+            <p className="font-semibold text-lg">
+              Insira o nome da nova categoria.
+            </p>
 
-          <input
-            ref={categoriaRef}
-            type="text"
-            placeholder="Digite o nome da categoria"
-            className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
-          />
+            <input
+              ref={categoriaRef}
+              type="text"
+              placeholder="Digite o nome da categoria"
+              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+            />
 
-          <input
-            ref={orcamentoRef}
-            type="number"
-            placeholder="Digite o seu orçamento"
-            className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
-          />
+            <input
+              ref={orcamentoRef}
+              type="number"
+              placeholder="Digite o seu orçamento"
+              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+            />
 
-          <div className="flex gap-2 mt-4">
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Concluir
-            </button>
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+              >
+                Concluir
+              </button>
 
-            <button
-              onClick={() => setShowForm(false)}
-              className="bg-gray-300 px-4 py-2 rounded-lg"
-            >
-              Cancelar
-            </button>
+              <button
+                onClick={() => setShowForm(false)}
+                className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+              >
+                Cancelar
+              </button>
+            </div>
           </div>
-        </dialog>
+        </div>
       )}
     </>
   );

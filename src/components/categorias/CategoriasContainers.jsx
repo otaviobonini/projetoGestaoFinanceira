@@ -1,8 +1,15 @@
+import { useContext } from "react";
+import { TransactionContext } from "../../store/transctionsContext";
 export default function CategoriasContainers({
   nomeCategoria,
   orcamento,
   gasto,
+  id,
 }) {
+  const { deleteCategoria } = useContext(TransactionContext);
+  async function handleDelete() {
+    await deleteCategoria(id);
+  }
   // Converte "R$ 100,00" para número
   const orcamentoNum = parseFloat(orcamento);
   const gastoNum = parseFloat(gasto);
@@ -27,7 +34,15 @@ export default function CategoriasContainers({
 
   return (
     <div className="bg-white w-80 p-4 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4"> {nomeCategoria}</h1>
+      <div className="flex justify-between items-start ">
+        <h1 className="text-2xl font-bold mb-4"> {nomeCategoria}</h1>
+        <button
+          onClick={handleDelete}
+          className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
+        >
+          Deletar
+        </button>
+      </div>
       <p className="text-gray-500 mb-2">
         Orçamento: R$ {orcamento.toLocaleString("pt-BR")}
       </p>

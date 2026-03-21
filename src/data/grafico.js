@@ -1,14 +1,15 @@
 export function variaveisGrafico(transacoes) {
   const categorias = {};
 
-  transacoes.forEach((t) => {
+  transacoes.map((t) => {
     if (t.tipo === "saida") {
-      if (!categorias[t.categoria]) categorias[t.categoria] = 0;
-      categorias[t.categoria] += Math.abs(t.valor);
+      if (!categorias[t.categoria.nome]) categorias[t.categoria.nome] = 0;
+      categorias[t.categoria.nome] += Math.abs(t.valor);
     }
   });
 
   const labels = Object.keys(categorias);
+  console.log(categorias);
   const values = Object.values(categorias);
 
   const totalGastos = values.reduce((a, b) => a + b, 0);

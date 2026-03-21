@@ -1,86 +1,132 @@
 import logo from "../assets/logo.png";
-import { useContext } from "react";
-import { TransactionContext } from "../store/transctionsContext";
+import { NavLink, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form } from "react-router-dom";
 import {
   faTableList,
   faTableCellsLarge,
   faCrosshairs,
   faCreditCard,
 } from "@fortawesome/free-solid-svg-icons";
+import { useContext, useState } from "react";
+import { TransactionContext } from "../store/transctionsContext";
 
 export default function Sidebar() {
-  const { activeButton, handleButtonClick } = useContext(TransactionContext);
+  const [sidebarState, setSidebarState] = useState(false);
+  const { getAuthToken } = useContext(TransactionContext);
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "text-black hover:text-black bg-green-200 rounded-lg p-2 w-1/2"
+      : "hover:text-black p-2 w-1/2";
+  const token = getAuthToken();
   return (
-    <div className="flex h-screen w-1/10">
-      <aside>
-        <div className="flex items-center gap-2 p-4 ">
-          <img className="w-32 h-24" src={logo} alt="Logo de Bonini Finances" />
-          <h1 className="text-black text-xl font-normal">Bonini Finances</h1>
-        </div>
+    <div className="flex min-h-screen ">
+      {sidebarState && (
+        <div
+          className="fixed inset-0 bg-black/30 z-40"
+          onClick={() => setSidebarState(false)}
+        />
+      )}
 
-        <div className="mt-4 ml-8">
-          <h2 className="text-gray-400 font-bold">MENU PRINCIPAL</h2>
-          <ul className="mt-4 space-y-4 text-gray-500 font-semibold">
-            <li>
-              <button
-                id="Visão Geral"
-                onClick={() => handleButtonClick("Visão Geral")}
-                className={
-                  activeButton === "Visão Geral"
-                    ? "text-black hover:text-black bg-green-200 rounded-lg p-2 w-1/2"
-                    : "hover:text-black p-2 w-1/2"
-                }
-              >
-                <FontAwesomeIcon icon={faTableCellsLarge} />
-                Visão Geral
-              </button>
-            </li>
-            <li>
-              <button
-                id="Categorias"
-                onClick={() => handleButtonClick("Categorias")}
-                className={
-                  activeButton === "Categorias"
-                    ? "text-black hover:text-black p-2  bg-green-200 rounded-lg w-1/2"
-                    : "hover:text-black p-2 w-1/2"
-                }
-              >
-                <FontAwesomeIcon icon={faTableList} />
-                Categorias
-              </button>
-            </li>
-            <li>
-              <button
-                id="Metas"
-                onClick={() => handleButtonClick("Metas")}
-                className={
-                  activeButton === "Metas"
-                    ? "text-black hover:text-black p-2  bg-green-200 rounded-lg w-1/2"
-                    : "hover:text-black p-2 w-1/2"
-                }
-              >
-                <FontAwesomeIcon icon={faCrosshairs} />
-                Metas
-              </button>
-            </li>
-            <li>
-              <button
-                id="Transacoes"
-                onClick={() => handleButtonClick("Transacoes")}
-                className={
-                  activeButton === "Transacoes"
-                    ? "text-black hover:text-black p-2  bg-green-200 rounded-lg w-1/2"
-                    : "hover:text-black p-2 w-1/2"
-                }
-              >
-                <FontAwesomeIcon icon={faCreditCard} />
-                Transações
-              </button>
-            </li>
-          </ul>
+      <aside
+        className={`
+    fixed top-0 left-0 h-full w-64 bg-white z-50
+    flex flex-col justify-between shadow-md
+    transform transition-transform duration-300
+    ${sidebarState ? "translate-x-0" : "-translate-x-full"}
+  `}
+      >
+        <div>
+          <div className="flex items-center gap-2 p-4 ">
+            <img
+              className="w-32 h-24"
+              src={logo}
+              alt="Logo de Bonini Finances"
+            />
+            <h1 className="text-black text-xl font-normal">Bonini Finances</h1>
+          </div>
+
+          <div className="mt-4 ml-8">
+            <h2 className="text-gray-400 font-bold">MENU PRINCIPAL</h2>
+
+            <ul className="mt-4 space-y-4 text-gray-500 font-semibold">
+              <li>
+                <NavLink
+                  to="dashboard"
+                  onClick={() => setSidebarState(false)}
+                  className={linkClass}
+                >
+                  <FontAwesomeIcon icon={faTableCellsLarge} />
+                  Visão Geral
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="categorias"
+                  onClick={() => setSidebarState(false)}
+                  className={linkClass}
+                >
+                  <FontAwesomeIcon icon={faTableList} />
+                  Categorias
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="metas"
+                  onClick={() => setSidebarState(false)}
+                  className={linkClass}
+                >
+                  <FontAwesomeIcon icon={faCrosshairs} />
+                  Metas
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="transacoes"
+                  onClick={() => setSidebarState(false)}
+                  className={linkClass}
+                >
+                  <FontAwesomeIcon icon={faCreditCard} />
+                  Transações
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="mb-12 flex">
+          <Form action="/logout" method="post">
+            <button
+              className=" w-full 
+      text-left 
+      bg-gray-500 
+      text-white 
+      font-semibold 
+      py-2 
+      px-4
+      text-center 
+      rounded-lg 
+      ml-8
+      shadow-md 
+      hover:bg-gray-600 
+      "
+            >
+              Logout
+            </button>
+          </Form>
         </div>
       </aside>
+      <main className="flex-1 bg-gray-100">
+        <button
+          onClick={() => setSidebarState(!sidebarState)}
+          className="fixed top-4 left-4 z-30 bg-white px-3 py-2 rounded shadow"
+        >
+          ☰
+        </button>
+        {token ? <Outlet /> : <h1>Nao logado</h1>}
+      </main>
     </div>
   );
 }

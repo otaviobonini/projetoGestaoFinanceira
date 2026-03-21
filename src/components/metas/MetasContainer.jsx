@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function MetasContainer({ name, value, icon, color }) {
   return (
-    <div className="bg-white shadow-sm rounded-lg flex gap-4 py-4 px-6 items-center w-80 ml-2 h-24 ">
+    <div className="bg-white shadow-sm rounded-lg flex gap-4 py-4 px-6 items-center  ml-2 h-24 ">
       <div className={`text-${color}-500`}>
         <label className={`text-xl bg-${color}-200 p-2 py-2 rounded-full`}>
           <FontAwesomeIcon icon={icon} />

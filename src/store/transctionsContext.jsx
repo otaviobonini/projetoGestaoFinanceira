@@ -1,11 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const TransactionContext = createContext({
   categorias: [],
   transacoes: [],
   metas: [],
   saldo: 0,
-  activeButton: "Visão Geral",
   addTransacao: () => {},
   handleButtonClick: () => {},
   addCategoria: () => {},
@@ -15,74 +14,200 @@ export const TransactionContext = createContext({
 
 export default function TransactionProvider({ children }) {
   const [saldo, setSaldo] = useState(0);
-  const [activeButton, setActiveButton] = useState("Visão Geral");
   const [categorias, setCategorias] = useState([]);
   const [transacoes, setTransacoes] = useState([]);
   const [metas, setMetas] = useState([]);
+  const token = getAuthToken();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  async function fetchData() {
+    if (!token) return;
+    try {
+      const transacoesRes = await fetch(`${apiUrl}/transactions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const transacoesData = await transacoesRes.json();
+      setTransacoes(transacoesData);
 
-  function addTransacao(valor, categoria, tipo) {
+      const metasRes = await fetch(`${apiUrl}/metas`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const metasData = await metasRes.json();
+      setMetas(metasData);
+
+      const categoriasRes = await fetch(`${apiUrl}/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const categoriasData = await categoriasRes.json();
+      setCategorias(categoriasData);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [token]);
+
+  async function addTransacao(valor, categoriaNome, tipo) {
     if (valor === undefined || valor <= 0) {
       return;
     }
     const valorNumerico = parseFloat(valor);
-    setTransacoes((prevTransacoes) => [
-      ...prevTransacoes,
-      {
-        valor: valorNumerico,
-        categoria,
-        data: new Date().toLocaleDateString(),
-        tipo,
-      },
-    ]);
+
     if (tipo === "entrada") {
       setSaldo((prevSaldo) => prevSaldo + valorNumerico);
     } else {
       setSaldo((prevSaldo) => prevSaldo - valorNumerico);
     }
+    try {
+      const res = await fetch(`${apiUrl}/transactions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          valor: valorNumerico,
+          categoriaNome,
+          tipo,
+        }),
+      });
+      const data = await res.json();
+      setTransacoes((prev) => [...prev, data]);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-  function addMeta(nome, desc, obj, data) {
+  function getAuthToken() {
+    const token = localStorage.getItem("token");
+    return token;
+  }
+
+  async function addMeta(nome, desc, obj, data) {
     if (nome === undefined || obj <= 0) {
       return;
     }
-    const novaMeta = {
-      id: crypto.randomUUID(),
-      nome,
-      obj,
-      desc,
-      data,
-      valor: 0,
-    };
 
-    setMetas((prev) => [...prev, novaMeta]);
+    try {
+      const newMeta = await fetch(`${apiUrl}/metas`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          nome,
+          objetivo: Number(obj),
+          descMeta: desc,
+          dataConclusao: data,
+        }),
+      });
+      const responseData = await newMeta.json();
+      setMetas((prev) => [...prev, responseData]);
+      return data;
+    } catch (err) {
+      console.log(err.erro);
+    }
   }
 
-  function addValorMeta(valor, id) {
+  async function deleteCategoria(id) {
+    try {
+      const deletedCategoria = await fetch(`${apiUrl}/categories/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const deleteData = await deletedCategoria.json();
+      setCategorias((prev) =>
+        prev.filter((categoria) => categoria.id !== deleteData.id),
+      );
+      return deleteData;
+    } catch (err) {
+      console.log(err.erro);
+    }
+  }
+
+  async function deleteMeta(id) {
+    try {
+      const deletedMeta = await fetch(`${apiUrl}/metas/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const deleteData = await deletedMeta.json();
+      setMetas((prev) => prev.filter((meta) => meta.id !== deleteData.id));
+      return deleteData;
+    } catch (err) {
+      console.log(err.erro);
+    }
+  }
+
+  async function addValorMeta(valor, id) {
     if (!valor || valor <= 0) return;
 
     const valorNumerico = Number(valor);
 
-    setMetas((prevMetas) =>
-      prevMetas.map((meta) =>
-        meta.id === id ? { ...meta, valor: meta.valor + valorNumerico } : meta,
-      ),
-    );
-    setSaldo((prevSaldo) => prevSaldo - valorNumerico);
+    try {
+      const newMetaValue = await fetch(`${apiUrl}/metas/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id,
+          valor: valorNumerico,
+        }),
+      });
+      const res = await newMetaValue.json();
+      setMetas((prevMetas) =>
+        prevMetas.map((meta) =>
+          meta.id === res.id
+            ? { ...meta, valorGuardado: meta.valorGuardado + valorNumerico }
+            : meta,
+        ),
+      );
+
+      setSaldo((prevSaldo) => prevSaldo - valorNumerico);
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
   }
-  function addCategoria(nomeCategoria, novoOrcamento) {
+  async function addCategoria(nomeCategoria, novoOrcamento) {
     if (novoOrcamento === undefined || novoOrcamento <= 0) {
       return;
     }
-    const novaCategoria = {
-      id: crypto.randomUUID(),
-      nome: nomeCategoria,
-      orcamento: Number(novoOrcamento),
-    };
-
-    setCategorias((prev) => [...prev, novaCategoria]);
-  }
-
-  function handleButtonClick(buttonName) {
-    setActiveButton(buttonName);
+    try {
+      const newCategoria = await fetch(`${apiUrl}/categories`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          nome: nomeCategoria,
+          orcamento: Number(novoOrcamento),
+        }),
+      });
+      const responseData = await newCategoria.json();
+      setCategorias((prev) => [...prev, responseData]);
+      return responseData;
+    } catch (err) {
+      console.log(err.erro);
+    }
   }
 
   const ctxValue = {
@@ -90,12 +215,13 @@ export default function TransactionProvider({ children }) {
     transacoes,
     saldo,
     metas,
-    activeButton,
+    deleteMeta,
     addTransacao,
-    handleButtonClick,
+    getAuthToken,
     addCategoria,
     addMeta,
     addValorMeta,
+    deleteCategoria,
   };
 
   return (

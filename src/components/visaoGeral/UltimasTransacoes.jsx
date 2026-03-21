@@ -4,13 +4,13 @@ import { TransactionContext } from "../../store/transctionsContext";
 export default function UltimasTransacoes() {
   const { transacoes } = useContext(TransactionContext);
   return (
-    <div className=" mt-8 bg-white py-8 rounded-2xl shadow-md mx-24 w-3/4">
+    <div className=" mt-8 w-[360px]  sm:w-full  overflow-x-auto   bg-white py-8 rounded-2xl shadow-md ">
       <h1 className="text-2xl px-8 font-bold mb-2">Últimas Transações</h1>
       <p className="text-gray-500 px-8 mb-6">
         Aqui estão as suas últimas transações.
       </p>
 
-      <div className="overflow-hidden rounded-xl border border-gray-100">
+      <div className="w-full   rounded-xl border border-gray-100">
         <table className="w-full text-left">
           <thead className="bg-gray-50 text-gray-500 text-sm uppercase tracking-wide">
             <tr>
@@ -35,10 +35,12 @@ export default function UltimasTransacoes() {
                   <td className="px-6 py-4 capitalize">{item.tipo}</td>
                   <td className="px-6 py-4">
                     <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                      {item.categoria}
+                      {item.categoria?.nome || "Saldo"}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-gray-500">{item.data}</td>
+                  <td className="px-6 py-4 text-gray-500">
+                    {new Date(item.createdAt).toLocaleDateString("pt-BR")}
+                  </td>
                 </tr>
               ))
             ) : (

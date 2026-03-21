@@ -1,14 +1,12 @@
-import MainContent from "./components/MainContent";
 import Sidebar from "./components/sidebar";
 import TransactionProvider from "./store/transctionsContext";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/index";
 
 function App() {
   return (
     <TransactionProvider>
-      <div className="flex h-screen ">
-        <Sidebar />
-        <MainContent />
-      </div>
+      <RouterProvider router={router}></RouterProvider>
     </TransactionProvider>
   );
 }

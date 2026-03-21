@@ -13,7 +13,7 @@ export default function AdicionarValorMeta({ metaId }) {
 
     if (!valorGuardado || valorGuardado <= 0) return;
 
-    addValorMeta(valorGuardado, metaId);
+    addValorMeta(valorGuardado, Number(metaId));
 
     guardarValorMetaRef.current.value = "";
     setShowForm(false);
@@ -29,35 +29,36 @@ export default function AdicionarValorMeta({ metaId }) {
       </button>
 
       {showForm && (
-        <dialog
-          open
-          className="bg-white h-56 p-6 rounded-lg shadow-lg absolute"
-        >
-          <p>Insira o valor que deseja guardar na meta</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
+          <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+            <p className="font-semibold text-lg">
+              Insira o valor à guardar na meta.
+            </p>
 
-          <input
-            ref={guardarValorMetaRef}
-            type="number"
-            placeholder="Valor a ser guardado"
-            className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
-          />
+            <input
+              ref={guardarValorMetaRef}
+              type="number"
+              placeholder="Valor a ser guardado"
+              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+            />
 
-          <div className="flex gap-2 mt-4">
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Concluir
-            </button>
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+              >
+                Concluir
+              </button>
 
-            <button
-              onClick={() => setShowForm(false)}
-              className="bg-gray-300 px-4 py-2 rounded-lg"
-            >
-              Cancelar
-            </button>
+              <button
+                onClick={() => setShowForm(false)}
+                className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+              >
+                Cancelar
+              </button>
+            </div>
           </div>
-        </dialog>
+        </div>
       )}
     </>
   );

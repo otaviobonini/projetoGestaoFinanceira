@@ -6,22 +6,42 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
+import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 
-export default function DashboardContainers({
-  proximaFatura,
-  porcentagemGanho,
-  porcentagemGasto,
-  totalGanho,
-  totalGasto,
-}) {
-  const { saldo } = useContext(TransactionContext);
+export default function DashboardContainers() {
+  const { transacoes, metas } = useContext(TransactionContext);
+
+  const {
+    totalMes: totalGanho,
+    porcentagem: porcentagemGanho,
+    economiaMensal: economiaMensalGanho,
+  } = calcularPorcentagemMes(transacoes, "entrada");
+  const {
+    totalMes: totalGasto,
+    porcentagem: porcentagemGasto,
+    economiaMensal: economiaMensalGasto,
+  } = calcularPorcentagemMes(transacoes, "saida");
+
+  const economiaMensal = economiaMensalGanho - economiaMensalGasto;
+  const metasGuardadas = metas
+    .map((meta) => meta.valorGuardado)
+    .reduce((acc, value) => acc + value, 0);
+
+  const saldo = totalGanho - totalGasto - metasGuardadas;
+
   return (
-    <div className="flex gap-8 mt-4 ">
-      <div className=" bg-green-400 w-72 h-48 rounded-2xl p-8 shadow-lg">
-        <h1 className="text-lg font-semibold">SALDO ATUAL</h1>
-        <p className="text-3xl font-bold">R$ {saldo.toLocaleString("pt-BR")}</p>
-        <p className="text-sm font-normal mt-5">FATURA PROXIMA</p>
-        <p className="text-xl font-bold">R$ {proximaFatura.toFixed(2)}</p>
+    <div className="grid gap-8 mt-4 grid-cols-1 lg:grid-cols-3">
+      <div className=" bg-green-400 h-48 rounded-2xl p-8 shadow-lg">
+        <h1 className="text-l font-semibold ">SALDO ATUAL</h1>
+        <p className=" font-bold text-3xl ">
+          R$ {saldo.toLocaleString("pt-BR")}
+        </p>
+        <p className="text-sm font-normal mt-5">ECONOMIA MENSAL</p>
+        <p className="text-l font-bold">
+          {economiaMensal === saldo
+            ? "Sem dados do mês passado"
+            : `R$ ${economiaMensal.toLocaleString("pt-BR")}`}
+        </p>
       </div>
       <div className=" h-48 rounded-2xl p-8 shadow-lg">
         <FontAwesomeIcon
@@ -36,7 +56,7 @@ export default function DashboardContainers({
         </p>
         <p className="py-4 text-l font-semibold text-green-600">
           <FontAwesomeIcon icon={faArrowUp} />
-          {porcentagemGanho} em relação ao mês passado
+          {porcentagemGanho}% em relação ao mês passado
         </p>
       </div>
       <div className="  h-48 rounded-2xl p-8 shadow-lg">
@@ -52,7 +72,7 @@ export default function DashboardContainers({
           R$ {totalGasto.toLocaleString("pt-BR")}
         </p>
         <p className="py-4 text-l font-semibold text-red-600">
-          <FontAwesomeIcon icon={faArrowDown} /> {porcentagemGasto} em relação
+          <FontAwesomeIcon icon={faArrowDown} /> {porcentagemGasto}% em relação
           ao mês passado
         </p>
       </div>
