@@ -3,6 +3,7 @@ import NovaTransacao from "../components/visaoGeral/NovaTransacao";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { variaveisGrafico } from "../data/grafico";
+import calcularPorcentagemMes from "../utils/porcentagemAoMes";
 import { useContext } from "react";
 import { TransactionContext } from "../store/transctionsContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,8 +16,8 @@ export default function DashboardPage() {
   const gasto = transacoes
     .filter((t) => t.tipo === "saida")
     .reduce((acc, t) => acc + t.valor, 0);
-  const { colors, data, labels, porcentagens, totalGastos } =
-    variaveisGrafico(transacoes);
+  const { colors, data, labels, porcentagens } = variaveisGrafico(transacoes);
+  const { totalMes: totalGasto } = calcularPorcentagemMes(transacoes, "saida");
   return (
     <>
       {" "}
@@ -37,7 +38,7 @@ export default function DashboardPage() {
           <h1 className="text-xl font-bold">Grafico por categoria</h1>{" "}
           <p className="text-gray-700 font-semibold">
             {" "}
-            Total gasto: R${totalGastos.toLocaleString("pt-BR")}{" "}
+            Total gasto no mês: R${totalGasto.toLocaleString("pt-BR")}{" "}
           </p>{" "}
           <div className="w-full h-72 mx-auto">
             <Doughnut

@@ -1,5 +1,14 @@
 export default function calcularPorcentagemMes(transacoes, tipo) {
   const mesValores = {};
+
+  const totalPositivo = transacoes
+    .filter((t) => t.tipo === "entrada")
+    .reduce((acc, t) => acc + Number(t.valor), 0);
+
+  const totalNegativo = transacoes
+    .filter((t) => t.tipo === "saida")
+    .reduce((acc, t) => acc + Math.abs(Number(t.valor)), 0);
+
   transacoes.forEach((t) => {
     if (t.tipo === tipo) {
       const mes = new Date(t.createdAt).getMonth();
@@ -24,5 +33,6 @@ export default function calcularPorcentagemMes(transacoes, tipo) {
     totalMes: atual,
     porcentagem: porcentagem.toFixed(2),
     economiaMensal,
+    saldo: totalPositivo - totalNegativo,
   };
 }

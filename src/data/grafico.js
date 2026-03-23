@@ -1,16 +1,26 @@
 export function variaveisGrafico(transacoes) {
-  const categorias = {};
+  const meses = {};
+  const dataAtual = new Date();
+  const mesAtual = dataAtual.getMonth();
 
-  transacoes.map((t) => {
+  transacoes.forEach((t) => {
     if (t.tipo === "saida") {
-      if (!categorias[t.categoria.nome]) categorias[t.categoria.nome] = 0;
-      categorias[t.categoria.nome] += Math.abs(t.valor);
+      const mes = new Date(t.createdAt).getMonth();
+      const categoria = t.categoria.nome;
+      if (!meses[mes]) {
+        meses[mes] = {};
+      }
+      if (!meses[mes][categoria]) {
+        meses[mes][categoria] = 0;
+      }
+
+      meses[mes][categoria] += Math.abs(t.valor);
     }
   });
+  const dadosMesAtual = meses[mesAtual] || {};
 
-  const labels = Object.keys(categorias);
-  console.log(categorias);
-  const values = Object.values(categorias);
+  const labels = Object.keys(dadosMesAtual);
+  const values = Object.values(dadosMesAtual);
 
   const totalGastos = values.reduce((a, b) => a + b, 0);
 

@@ -10,14 +10,12 @@ export default function CategoriasContainers({
   async function handleDelete() {
     await deleteCategoria(id);
   }
-  // Converte "R$ 100,00" para número
+
   const orcamentoNum = parseFloat(orcamento);
   const gastoNum = parseFloat(gasto);
 
-  // Calcula o percentual gasto, limitado a 100%
   const percent = Math.round((gastoNum / orcamentoNum) * 100);
 
-  // Define a cor da barra conforme o percentual
   const textColor =
     percent < 70
       ? "text-green-500"

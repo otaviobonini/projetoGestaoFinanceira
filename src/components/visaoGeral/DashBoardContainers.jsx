@@ -5,29 +5,28 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
+import calcularEconomiaMensal from "../../utils/economiaMensal";
 import { TransactionContext } from "../../store/transctionsContext";
 import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 
 export default function DashboardContainers() {
   const { transacoes, metas } = useContext(TransactionContext);
-
+  const { economiaAtual, semDadosAnterior } =
+    calcularEconomiaMensal(transacoes);
   const {
     totalMes: totalGanho,
     porcentagem: porcentagemGanho,
-    economiaMensal: economiaMensalGanho,
-  } = calcularPorcentagemMes(transacoes, "entrada");
-  const {
-    totalMes: totalGasto,
-    porcentagem: porcentagemGasto,
-    economiaMensal: economiaMensalGasto,
-  } = calcularPorcentagemMes(transacoes, "saida");
 
-  const economiaMensal = economiaMensalGanho - economiaMensalGasto;
+    saldo: saldoTotal,
+  } = calcularPorcentagemMes(transacoes, "entrada");
+  const { totalMes: totalGasto, porcentagem: porcentagemGasto } =
+    calcularPorcentagemMes(transacoes, "saida");
+
   const metasGuardadas = metas
     .map((meta) => meta.valorGuardado)
     .reduce((acc, value) => acc + value, 0);
 
-  const saldo = totalGanho - totalGasto - metasGuardadas;
+  const saldo = saldoTotal - metasGuardadas;
 
   return (
     <div className="grid gap-8 mt-4 grid-cols-1 lg:grid-cols-3">
@@ -38,9 +37,9 @@ export default function DashboardContainers() {
         </p>
         <p className="text-sm font-normal mt-5">ECONOMIA MENSAL</p>
         <p className="text-l font-bold">
-          {economiaMensal === saldo
+          {semDadosAnterior
             ? "Sem dados do mês passado"
-            : `R$ ${economiaMensal.toLocaleString("pt-BR")}`}
+            : `R$ ${economiaAtual.toLocaleString("pt-BR")}`}
         </p>
       </div>
       <div className=" h-48 rounded-2xl p-8 shadow-lg">

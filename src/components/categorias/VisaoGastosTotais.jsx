@@ -4,6 +4,8 @@ import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function VisaoGastosTotais() {
   const { categorias, transacoes } = useContext(TransactionContext);
+  const dataAtual = new Date();
+  const mesAtual = dataAtual.getMonth();
   const orcamentoTotal = categorias
     .map((cat) => cat.orcamento)
     .reduce((acc, curr) => acc + curr, 0);
@@ -11,9 +13,15 @@ export default function VisaoGastosTotais() {
   const gastoTotal = useMemo(() => {
     const categoriaId = categorias.map((categoria) => categoria.id);
     return transacoes
-      .filter((t) => t.tipo === "saida" && categoriaId.includes(t.categoriaId))
+
+      .filter(
+        (t) =>
+          t.tipo === "saida" &&
+          categoriaId.includes(t.categoriaId) &&
+          new Date(t.createdAt).getMonth() === mesAtual,
+      )
       .reduce((acc, t) => acc + t.valor, 0);
-  }, [transacoes, categorias]);
+  }, [transacoes, categorias, mesAtual]);
   let barColor = "";
   let textColor = "";
   const percent = orcamentoTotal > 0 ? (gastoTotal / orcamentoTotal) * 100 : 0;

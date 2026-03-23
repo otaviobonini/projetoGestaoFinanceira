@@ -17,8 +17,14 @@ export default function Categorias() {
       <VisaoGastosTotais></VisaoGastosTotais>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 py-8  ">
         {categorias.map((categoria) => {
+          const mes = new Date().getMonth();
           const gasto = transacoes
-            .filter((t) => t.categoriaId === categoria.id && t.tipo === "saida")
+            .filter(
+              (t) =>
+                t.categoriaId === categoria.id &&
+                t.tipo === "saida" &&
+                new Date(t.createdAt).getMonth() === mes,
+            )
             .reduce((acc, t) => acc + Math.abs(t.valor), 0);
 
           return (
