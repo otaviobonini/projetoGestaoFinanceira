@@ -33,7 +33,18 @@ export default function DateFilter() {
     <select
       value={mes}
       onChange={handleChange}
-      className="bg-white border rounded-lg p-2 font-semibold"
+      className="bg-white 
+    border border-gray-300 
+    rounded-xl 
+    px-4 py-2 
+    font-medium 
+    text-gray-700 
+    shadow-sm
+    hover:border-gray-400
+    
+   
+    cursor-pointer
+  "
     >
       {mesesComTransacoes.map((mesIndex) => (
         <option key={mesIndex} value={mesIndex}>

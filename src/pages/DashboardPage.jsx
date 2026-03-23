@@ -32,7 +32,7 @@ export default function DashboardPage() {
         </p>{" "}
         <div className="flex justify-end ">
           {" "}
-          <div className="gap-4 flex">
+          <div className="gap-4 p-4 flex">
             <DateFilter></DateFilter>
             <NovaTransacao />{" "}
           </div>
