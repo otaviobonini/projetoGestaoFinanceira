@@ -5,6 +5,8 @@ export const TransactionContext = createContext({
   transacoes: [],
   metas: [],
   saldo: 0,
+  mes: 0,
+  handleMes: () => {},
   addTransacao: () => {},
   handleButtonClick: () => {},
   addCategoria: () => {},
@@ -13,7 +15,10 @@ export const TransactionContext = createContext({
 });
 
 export default function TransactionProvider({ children }) {
+  const dataAtual = new Date();
+  const mesAtual = dataAtual.getMonth();
   const [saldo, setSaldo] = useState(0);
+  const [mes, setMes] = useState(mesAtual);
   const [categorias, setCategorias] = useState([]);
   const [transacoes, setTransacoes] = useState([]);
   const [metas, setMetas] = useState([]);
@@ -155,6 +160,10 @@ export default function TransactionProvider({ children }) {
     }
   }
 
+  function handleMes(mes) {
+    setMes(mes);
+  }
+
   async function addValorMeta(valor, id) {
     if (!valor || valor <= 0) return;
 
@@ -216,6 +225,8 @@ export default function TransactionProvider({ children }) {
     transacoes,
     saldo,
     metas,
+    mes,
+    handleMes,
     deleteMeta,
     addTransacao,
     getAuthToken,

@@ -10,17 +10,18 @@ import { TransactionContext } from "../../store/transctionsContext";
 import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 
 export default function DashboardContainers() {
+  const { mes } = useContext(TransactionContext);
+
   const { transacoes, metas } = useContext(TransactionContext);
-  const { economiaAtual, semDadosAnterior } =
-    calcularEconomiaMensal(transacoes);
+  const { economiaAtual } = calcularEconomiaMensal(transacoes, mes);
   const {
     totalMes: totalGanho,
     porcentagem: porcentagemGanho,
 
     saldo: saldoTotal,
-  } = calcularPorcentagemMes(transacoes, "entrada");
+  } = calcularPorcentagemMes(transacoes, "entrada", mes);
   const { totalMes: totalGasto, porcentagem: porcentagemGasto } =
-    calcularPorcentagemMes(transacoes, "saida");
+    calcularPorcentagemMes(transacoes, "saida", mes);
 
   const metasGuardadas = metas
     .map((meta) => meta.valorGuardado)
@@ -37,9 +38,7 @@ export default function DashboardContainers() {
         </p>
         <p className="text-sm font-normal mt-5">ECONOMIA MENSAL</p>
         <p className="text-l font-bold">
-          {semDadosAnterior
-            ? "Sem dados do mês passado"
-            : `R$ ${economiaAtual.toLocaleString("pt-BR")}`}
+          R$ {economiaAtual.toLocaleString("pt-BR")}
         </p>
       </div>
       <div className=" h-48 rounded-2xl p-8 shadow-lg">

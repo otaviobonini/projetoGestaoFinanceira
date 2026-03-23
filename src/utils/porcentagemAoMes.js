@@ -1,12 +1,16 @@
-export default function calcularPorcentagemMes(transacoes, tipo) {
+export default function calcularPorcentagemMes(transacoes, tipo, mesAtual) {
   const mesValores = {};
-
   const totalPositivo = transacoes
-    .filter((t) => t.tipo === "entrada")
+    .filter(
+      (t) =>
+        t.tipo === "entrada" && new Date(t.createdAt).getMonth() <= mesAtual,
+    )
     .reduce((acc, t) => acc + Number(t.valor), 0);
 
   const totalNegativo = transacoes
-    .filter((t) => t.tipo === "saida")
+    .filter(
+      (t) => t.tipo === "saida" && new Date(t.createdAt).getMonth() <= mesAtual,
+    )
     .reduce((acc, t) => acc + Math.abs(Number(t.valor)), 0);
 
   transacoes.forEach((t) => {
@@ -17,8 +21,6 @@ export default function calcularPorcentagemMes(transacoes, tipo) {
     }
   });
 
-  const dataAtual = new Date();
-  const mesAtual = dataAtual.getMonth();
   const mesAnterior = mesAtual - 1 >= 0 ? mesAtual - 1 : 11;
 
   const atual = mesValores[mesAtual] || 0;

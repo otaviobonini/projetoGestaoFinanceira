@@ -1,6 +1,4 @@
-export default function calcularEconomiaMensal(transacoes) {
-  const dataAtual = new Date();
-  const mesAtual = dataAtual.getMonth();
+export default function calcularEconomiaMensal(transacoes, mesAtual) {
   const mesPassado = mesAtual === 0 ? 11 : mesAtual - 1;
 
   function calcularSaldoMes(mes) {

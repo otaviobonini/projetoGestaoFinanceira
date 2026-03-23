@@ -2,6 +2,7 @@ import DashboardContainers from "../components/visaoGeral/DashBoardContainers";
 import NovaTransacao from "../components/visaoGeral/NovaTransacao";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import DateFilter from "../components/visaoGeral/DateFilter";
 import { variaveisGrafico } from "../data/grafico";
 import calcularPorcentagemMes from "../utils/porcentagemAoMes";
 import { useContext } from "react";
@@ -9,15 +10,16 @@ import { TransactionContext } from "../store/transctionsContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
 import UltimasTransacoes from "../components/visaoGeral/UltimasTransacoes";
 export default function DashboardPage() {
-  const { transacoes } = useContext(TransactionContext);
-  const ganho = transacoes
-    .filter((t) => t.tipo === "entrada")
-    .reduce((acc, t) => acc + t.valor, 0);
-  const gasto = transacoes
-    .filter((t) => t.tipo === "saida")
-    .reduce((acc, t) => acc + t.valor, 0);
-  const { colors, data, labels, porcentagens } = variaveisGrafico(transacoes);
-  const { totalMes: totalGasto } = calcularPorcentagemMes(transacoes, "saida");
+  const { transacoes, mes } = useContext(TransactionContext);
+  const { colors, data, labels, porcentagens } = variaveisGrafico(
+    transacoes,
+    mes,
+  );
+  const { totalMes: totalGasto } = calcularPorcentagemMes(
+    transacoes,
+    "saida",
+    mes,
+  );
   return (
     <>
       {" "}
@@ -30,9 +32,12 @@ export default function DashboardPage() {
         </p>{" "}
         <div className="flex justify-end ">
           {" "}
-          <NovaTransacao />{" "}
+          <div className="gap-4 flex">
+            <DateFilter></DateFilter>
+            <NovaTransacao />{" "}
+          </div>
         </div>{" "}
-        <DashboardContainers totalGanho={ganho} totalGasto={gasto} />{" "}
+        <DashboardContainers />{" "}
         <div className="mt-12 bg-white rounded-2xl shadow-md w-2/3 p-8 ">
           {" "}
           <h1 className="text-xl font-bold">Grafico por categoria</h1>{" "}

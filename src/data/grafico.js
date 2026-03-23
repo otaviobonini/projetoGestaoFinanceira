@@ -1,7 +1,5 @@
-export function variaveisGrafico(transacoes) {
+export function variaveisGrafico(transacoes, mesAtual) {
   const meses = {};
-  const dataAtual = new Date();
-  const mesAtual = dataAtual.getMonth();
 
   transacoes.forEach((t) => {
     if (t.tipo === "saida") {
