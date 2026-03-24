@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
 import UltimasTransacoes from "../visaoGeral/UltimasTransacoes";
 import NovoSaldo from "./AdicionarSaldo";
+import Loading from "../Loading";
+import Skeleton from "../Skeleton";
 
 export default function Transacoes() {
-  const { transacoes, metas } = useContext(TransactionContext);
+  const { transacoes, metas, loading } = useContext(TransactionContext);
 
   const entrada = transacoes
     .filter((t) => t.tipo === "entrada")
@@ -32,9 +34,13 @@ export default function Transacoes() {
         <div className="bg-white p-4 w-full md:w-fit  shadow-sm rounded-lg flex flex-col sm:flex-row gap-4 sm:items-center">
           <div className="font-bold uppercase">
             <p className="text-xs text-gray-500">Saldo atual</p>
-            <h1 className="text-lg md:text-xl">
-              R$ {saldo.toLocaleString("pt-BR")}
-            </h1>
+            {loading ? (
+              <Skeleton className="align-middle w-20 mt-2"></Skeleton>
+            ) : (
+              <h1 className="text-lg md:text-xl">
+                R$ {saldo.toLocaleString("pt-BR")}
+              </h1>
+            )}
           </div>
 
           <NovoSaldo />
