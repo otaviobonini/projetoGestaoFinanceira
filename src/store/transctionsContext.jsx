@@ -6,6 +6,7 @@ export const TransactionContext = createContext({
   metas: [],
   saldo: 0,
   mes: 0,
+  loading: true,
   handleMes: () => {},
   addTransacao: () => {},
   handleButtonClick: () => {},
@@ -19,14 +20,17 @@ export default function TransactionProvider({ children }) {
   const mesAtual = dataAtual.getMonth();
   const [saldo, setSaldo] = useState(0);
   const [mes, setMes] = useState(mesAtual);
+  const [loading, setLoading] = useState(true);
   const [categorias, setCategorias] = useState([]);
   const [transacoes, setTransacoes] = useState([]);
   const [metas, setMetas] = useState([]);
+
   const token = getAuthToken();
   const apiUrl = import.meta.env.VITE_API_URL;
   async function fetchData() {
     if (!token) return;
     try {
+      setLoading(true);
       const transacoesRes = await fetch(`${apiUrl}/transactions`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,6 +57,8 @@ export default function TransactionProvider({ children }) {
       setCategorias(categoriasData);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -226,6 +232,7 @@ export default function TransactionProvider({ children }) {
     saldo,
     metas,
     mes,
+    loading,
     handleMes,
     deleteMeta,
     addTransacao,

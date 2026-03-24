@@ -11,6 +11,7 @@ export default function VisaoGastosTotais() {
     .reduce((acc, curr) => acc + curr, 0);
 
   const gastoTotal = useMemo(() => {
+    console.log(categorias);
     const categoriaId = categorias.map((categoria) => categoria.id);
     return transacoes
 
