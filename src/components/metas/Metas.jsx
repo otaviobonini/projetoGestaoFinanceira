@@ -9,9 +9,10 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
+import Loading from "../Loading";
 
 export default function Metas() {
-  const { metas } = useContext(TransactionContext);
+  const { metas, loading } = useContext(TransactionContext);
   console.log(metas);
   const metasConcluidas = metas.filter(
     (meta) => meta.valorGuardado >= meta.objetivo,
@@ -62,18 +63,22 @@ export default function Metas() {
         ))}
       </div>
 
-      <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {metas.map((meta) => (
-          <CustomMetasContainer
-            key={meta.id}
-            nome={meta.nome}
-            desc={meta.descMeta}
-            obj={meta.objetivo}
-            data={meta.dataConclusao}
-            metaId={meta.id}
-            valor={meta.valorGuardado}
-          />
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {loading ? (
+          <Loading />
+        ) : (
+          metas.map((meta) => (
+            <CustomMetasContainer
+              key={meta.id}
+              nome={meta.nome}
+              desc={meta.descMeta}
+              obj={meta.objetivo}
+              data={meta.dataConclusao}
+              metaId={meta.id}
+              valor={meta.valorGuardado}
+            />
+          ))
+        )}
 
         <NovaMeta />
       </div>

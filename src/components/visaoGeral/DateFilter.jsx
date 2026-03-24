@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
+import Skeleton from "../Skeleton";
 
 export default function DateFilter() {
   const meses = [
@@ -17,7 +18,8 @@ export default function DateFilter() {
     "Dezembro",
   ];
 
-  const { handleMes, mes, transacoes } = useContext(TransactionContext);
+  const { handleMes, mes, transacoes, loading } =
+    useContext(TransactionContext);
 
   function handleChange(e) {
     const novoMes = Number(e.target.value);
@@ -29,7 +31,9 @@ export default function DateFilter() {
 
   if (mesesComTransacoes.length === 0) return null;
 
-  return (
+  return loading ? (
+    <Skeleton className="px-4 py-2 h-full w-full"></Skeleton>
+  ) : (
     <select
       value={mes}
       onChange={handleChange}

@@ -2,8 +2,9 @@ import { useContext, useMemo } from "react";
 import { TransactionContext } from "../../store/transctionsContext";
 import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Skeleton from "../Skeleton";
 export default function VisaoGastosTotais() {
-  const { categorias, transacoes } = useContext(TransactionContext);
+  const { categorias, transacoes, loading } = useContext(TransactionContext);
   const dataAtual = new Date();
   const mesAtual = dataAtual.getMonth();
   const orcamentoTotal = categorias
@@ -43,12 +44,16 @@ export default function VisaoGastosTotais() {
         Visão mensal total
       </p>
       <div className="flex">
-        <h1 className="font-bold text-3xl">
-          R$ {gastoTotal.toLocaleString("pt-BR")}{" "}
-          <label className="text-lg font-normal text-gray-400">
-            /R$ {orcamentoTotal.toLocaleString("pt-BR")}
-          </label>
-        </h1>
+        {loading ? (
+          <Skeleton className="w-40 h-8"></Skeleton>
+        ) : (
+          <h1 className="font-bold text-3xl">
+            R$ {gastoTotal.toLocaleString("pt-BR")}{" "}
+            <label className="text-lg font-normal text-gray-400">
+              /R$ {orcamentoTotal.toLocaleString("pt-BR")}
+            </label>
+          </h1>
+        )}
         <label className=" w-16 h-16 ml-auto flex items-center justify-center bg-blue-300 rounded-full">
           <FontAwesomeIcon
             className=" text-4xl text-blue-600"

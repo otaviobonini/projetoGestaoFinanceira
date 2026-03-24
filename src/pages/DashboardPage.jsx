@@ -9,8 +9,9 @@ import { useContext } from "react";
 import { TransactionContext } from "../store/transctionsContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
 import UltimasTransacoes from "../components/visaoGeral/UltimasTransacoes";
+import Skeleton from "../components/Skeleton";
 export default function DashboardPage() {
-  const { transacoes, mes } = useContext(TransactionContext);
+  const { transacoes, mes, loading } = useContext(TransactionContext);
   const { colors, data, labels, porcentagens } = variaveisGrafico(
     transacoes,
     mes,
@@ -43,7 +44,12 @@ export default function DashboardPage() {
           <h1 className="text-xl font-bold">Grafico por categoria</h1>{" "}
           <p className="text-gray-700 font-semibold">
             {" "}
-            Total gasto no mês: R${totalGasto.toLocaleString("pt-BR")}{" "}
+            Total gasto no mês:{" "}
+            {loading ? (
+              <Skeleton className="w-12 align-middle   sm:inline-block "></Skeleton>
+            ) : (
+              <label>R$ {totalGasto.toLocaleString("pt-BR")}</label>
+            )}{" "}
           </p>{" "}
           <div className="w-full h-72 mx-auto">
             <Doughnut

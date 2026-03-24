@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
+import { TransactionContext } from "../../store/transctionsContext";
+import Skeleton from "../Skeleton";
 export default function MetasContainer({ name, value, icon, color }) {
+  const { loading } = useContext(TransactionContext);
   return (
     <div className="bg-white shadow-sm rounded-lg flex gap-4 py-4 px-6 items-center  ml-2 h-24 ">
       <div className={`text-${color}-500`}>
@@ -11,7 +15,9 @@ export default function MetasContainer({ name, value, icon, color }) {
         <p className="uppercase text-gray-400 text-xs font-bold mb-[-4px]">
           {name}
         </p>
-        <h1 className="font-bold text-xl">{value}</h1>
+        <h1 className="font-bold text-xl">
+          {loading ? <Skeleton className="h-4 mt-2"></Skeleton> : value}
+        </h1>
       </div>
     </div>
   );
