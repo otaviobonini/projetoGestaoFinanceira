@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
+import { TransactionContext } from "../store/transctionsContext";
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm();
@@ -8,6 +9,7 @@ export default function LoginPage() {
   const [success, setSucess] = useState(false);
   const [isSubmiting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { setToken } = useContext(TransactionContext);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   async function onSubmit(data) {
@@ -30,6 +32,8 @@ export default function LoginPage() {
       }
       console.log(res);
       localStorage.setItem("token", res.token);
+      setToken(res.token);
+
       setSucess(true);
       setTimeout(() => {
         navigate("/");

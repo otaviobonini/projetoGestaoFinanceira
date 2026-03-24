@@ -20,12 +20,12 @@ export default function TransactionProvider({ children }) {
   const mesAtual = dataAtual.getMonth();
   const [saldo, setSaldo] = useState(0);
   const [mes, setMes] = useState(mesAtual);
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
   const [categorias, setCategorias] = useState([]);
   const [transacoes, setTransacoes] = useState([]);
   const [metas, setMetas] = useState([]);
 
-  const token = getAuthToken();
   const apiUrl = import.meta.env.VITE_API_URL;
   async function fetchData() {
     if (!token) return;
@@ -233,6 +233,7 @@ export default function TransactionProvider({ children }) {
     metas,
     mes,
     loading,
+    setToken,
     handleMes,
     deleteMeta,
     addTransacao,
