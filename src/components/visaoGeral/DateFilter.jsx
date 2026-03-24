@@ -31,13 +31,12 @@ export default function DateFilter() {
 
   if (mesesComTransacoes.length === 0) return null;
 
-  return loading ? (
-    <Skeleton className="px-4 py-2 h-full w-full"></Skeleton>
-  ) : (
-    <select
-      value={mes}
-      onChange={handleChange}
-      className="bg-white 
+  return (
+    loading && (
+      <select
+        value={mes}
+        onChange={handleChange}
+        className="bg-white 
     border border-gray-300 
     rounded-xl 
     px-4 py-2 
@@ -49,12 +48,13 @@ export default function DateFilter() {
    
     cursor-pointer
   "
-    >
-      {mesesComTransacoes.map((mesIndex) => (
-        <option key={mesIndex} value={mesIndex}>
-          {meses[mesIndex]}
-        </option>
-      ))}
-    </select>
+      >
+        {mesesComTransacoes.map((mesIndex) => (
+          <option key={mesIndex} value={mesIndex}>
+            {meses[mesIndex]}
+          </option>
+        ))}
+      </select>
+    )
   );
 }
