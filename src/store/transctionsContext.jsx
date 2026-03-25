@@ -191,7 +191,10 @@ export default function TransactionProvider({ children }) {
       setMetas((prevMetas) =>
         prevMetas.map((meta) =>
           meta.id === res.id
-            ? { ...meta, valorGuardado: meta.valorGuardado + valorNumerico }
+            ? {
+                ...meta,
+                valorGuardado: Number(meta.valorGuardado) + valorNumerico,
+              }
             : meta,
         ),
       );

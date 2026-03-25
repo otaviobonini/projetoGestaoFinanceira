@@ -24,7 +24,7 @@ export default function DashboardContainers() {
     calcularPorcentagemMes(transacoes, "saida", mes);
 
   const metasGuardadas = metas
-    .map((meta) => meta.valorGuardado)
+    .map((meta) => Number(meta.valorGuardado))
     .reduce((acc, value) => acc + value, 0);
 
   const saldo = saldoTotal - metasGuardadas;

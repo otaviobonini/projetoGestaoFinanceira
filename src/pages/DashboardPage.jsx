@@ -48,7 +48,12 @@ export default function DashboardPage() {
             {loading ? (
               <Skeleton className="w-12 align-middle   sm:inline-block "></Skeleton>
             ) : (
-              <label>R$ {totalGasto.toLocaleString("pt-BR")}</label>
+              <label>
+                R${" "}
+                {totalGasto.toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
+              </label>
             )}{" "}
           </p>{" "}
           <div className="w-full h-72 mx-auto">

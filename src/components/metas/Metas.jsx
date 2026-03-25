@@ -13,16 +13,16 @@ import Loading from "../Loading";
 
 export default function Metas() {
   const { metas, loading } = useContext(TransactionContext);
-  console.log(metas);
+
   const metasConcluidas = metas.filter(
-    (meta) => meta.valorGuardado >= meta.objetivo,
+    (meta) => Number(meta.valorGuardado) >= Number(meta.objetivo),
   );
   const metasAndamento = metas.filter(
-    (meta) => meta.valorGuardado < meta.objetivo,
+    (meta) => Number(meta.valorGuardado) < Number(meta.objetivo),
   );
 
   const valorTotal = metas
-    .map((meta) => meta.valorGuardado)
+    .map((meta) => Number(meta.valorGuardado))
     .reduce((acc, curr) => acc + curr, 0);
   const metasData = [
     {

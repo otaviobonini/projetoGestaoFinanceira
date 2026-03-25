@@ -17,7 +17,7 @@ export default function Transacoes() {
     .reduce((acc, t) => acc + Number(t.valor), 0);
 
   const metasGuardadas = metas
-    .map((meta) => meta.valorGuardado)
+    .map((meta) => Number(meta.valorGuardado))
     .reduce((acc, value) => acc + value, 0);
 
   const saldo = entrada - saida - metasGuardadas;
@@ -38,7 +38,7 @@ export default function Transacoes() {
               <Skeleton className="align-middle w-20 mt-2"></Skeleton>
             ) : (
               <h1 className="text-lg md:text-xl">
-                R$ {saldo.toLocaleString("pt-BR")}
+                R$ {saldo.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
               </h1>
             )}
           </div>

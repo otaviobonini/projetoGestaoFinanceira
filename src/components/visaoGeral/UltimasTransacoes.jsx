@@ -31,7 +31,10 @@ export default function UltimasTransacoes() {
                       item.tipo === "saida" ? "text-red-500" : "text-green-600"
                     }`}
                   >
-                    R$ {item.valor.toLocaleString("pt-BR")}
+                    R${" "}
+                    {Number(item.valor).toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                    })}
                   </td>
                   <td className="px-6 py-4 capitalize">{item.tipo}</td>
                   <td className="px-6 py-4">

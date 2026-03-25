@@ -32,7 +32,7 @@ export default function DateFilter() {
   if (mesesComTransacoes.length === 0) return null;
 
   return (
-    loading && (
+    !loading && (
       <select
         value={mes}
         onChange={handleChange}

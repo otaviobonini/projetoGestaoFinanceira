@@ -8,11 +8,10 @@ export default function VisaoGastosTotais() {
   const dataAtual = new Date();
   const mesAtual = dataAtual.getMonth();
   const orcamentoTotal = categorias
-    .map((cat) => cat.orcamento)
+    .map((cat) => Number(cat.orcamento))
     .reduce((acc, curr) => acc + curr, 0);
 
   const gastoTotal = useMemo(() => {
-    console.log(categorias);
     const categoriaId = categorias.map((categoria) => categoria.id);
     return transacoes
 
@@ -22,7 +21,7 @@ export default function VisaoGastosTotais() {
           categoriaId.includes(t.categoriaId) &&
           new Date(t.createdAt).getMonth() === mesAtual,
       )
-      .reduce((acc, t) => acc + t.valor, 0);
+      .reduce((acc, t) => acc + Number(t.valor), 0);
   }, [transacoes, categorias, mesAtual]);
   let barColor = "";
   let textColor = "";
