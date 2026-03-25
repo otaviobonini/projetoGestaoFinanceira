@@ -47,9 +47,13 @@ export default function VisaoGastosTotais() {
           <Skeleton className="w-40 h-8"></Skeleton>
         ) : (
           <h1 className="font-bold text-3xl">
-            R$ {gastoTotal.toLocaleString("pt-BR")}{" "}
+            R${" "}
+            {gastoTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}{" "}
             <label className="text-lg font-normal text-gray-400">
-              /R$ {orcamentoTotal.toLocaleString("pt-BR")}
+              /R${" "}
+              {orcamentoTotal.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </label>
           </h1>
         )}

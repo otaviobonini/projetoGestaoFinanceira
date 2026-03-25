@@ -42,10 +42,14 @@ export default function CategoriasContainers({
         </button>
       </div>
       <p className="text-gray-500 mb-2">
-        Orçamento: R$ {orcamento.toLocaleString("pt-BR")}
+        Orçamento: R${" "}
+        {Number(orcamento).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}
       </p>
       <h2 className="font-semibold mb-4">
-        Gasto: R$ {gasto.toLocaleString("pt-BR")}
+        Gasto: R${" "}
+        {Number(gasto).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
       </h2>
 
       {/* Barra de progresso */}

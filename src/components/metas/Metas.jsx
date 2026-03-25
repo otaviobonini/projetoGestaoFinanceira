@@ -27,7 +27,7 @@ export default function Metas() {
   const metasData = [
     {
       name: "Total Guardado",
-      value: `R$ ${valorTotal.toLocaleString("pt-BR")}`,
+      value: `R$ ${valorTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
       icon: faPiggyBank,
       color: "green",
     },
