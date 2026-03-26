@@ -1,21 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import DashboardPage from "../pages/DashboardPage";
-import Transacoes from "../components/transacoes/Transacoes";
-import { Navigate } from "react-router-dom";
-import Metas from "../components/metas/Metas";
-import Categorias from "../components/categorias/Categorias";
+import { lazy } from "react";
+import { requireAuth } from "../utils/auth";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { action as logoutAction } from "../pages/Logout";
-import { redirect } from "react-router-dom";
 
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) return redirect("/login");
-  return null;
-};
+const DashboardPage = lazy(() => import("../pages/DashboardPage"));
+const Transacoes = lazy(() => import("../components/transacoes/Transacoes"));
+const Metas = lazy(() => import("../components/metas/Metas"));
+const Categorias = lazy(() => import("../components/categorias/Categorias"));
 
 export const router = createBrowserRouter([
   {
@@ -24,12 +19,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <RegisterPage></RegisterPage>,
+    element: <RegisterPage />,
   },
   {
     path: "/",
     element: <Sidebar />,
-    errorElement: <NotFoundPage></NotFoundPage>,
+    errorElement: <NotFoundPage />,
     loader: requireAuth,
 
     children: [
@@ -43,15 +38,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "transacoes",
-        element: <Transacoes></Transacoes>,
+        element: <Transacoes />,
       },
       {
         path: "metas",
-        element: <Metas></Metas>,
+        element: <Metas />,
       },
       {
         path: "categorias",
-        element: <Categorias></Categorias>,
+        element: <Categorias />,
       },
       { path: "logout", action: logoutAction },
     ],

@@ -2,23 +2,24 @@ import logo from "../assets/logo.png";
 import { NavLink, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form } from "react-router-dom";
+import { Suspense } from "react";
+
 import {
   faTableList,
   faTableCellsLarge,
   faCrosshairs,
   faCreditCard,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
-import { TransactionContext } from "../store/transctionsContext";
+import { useState } from "react";
 
 export default function Sidebar() {
   const [sidebarState, setSidebarState] = useState(false);
-  const { getAuthToken } = useContext(TransactionContext);
+
   const linkClass = ({ isActive }) =>
     isActive
       ? "text-black hover:text-black bg-green-200 rounded-lg p-2 w-1/2"
       : "hover:text-black p-2 w-1/2";
-  const token = getAuthToken();
+
   return (
     <div className="flex min-h-screen ">
       {sidebarState && (
@@ -125,7 +126,15 @@ export default function Sidebar() {
         >
           ☰
         </button>
-        {token ? <Outlet /> : <h1>Nao logado</h1>}
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center h-full text-gray-500">
+              Carregando...
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );

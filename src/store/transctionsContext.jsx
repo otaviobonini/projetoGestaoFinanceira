@@ -4,7 +4,6 @@ export const TransactionContext = createContext({
   categorias: [],
   transacoes: [],
   metas: [],
-  saldo: 0,
   mes: 0,
   loading: true,
   handleMes: () => {},
@@ -18,7 +17,7 @@ export const TransactionContext = createContext({
 export default function TransactionProvider({ children }) {
   const dataAtual = new Date();
   const mesAtual = dataAtual.getMonth();
-  const [saldo, setSaldo] = useState(0);
+
   const [mes, setMes] = useState(mesAtual);
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
@@ -27,10 +26,12 @@ export default function TransactionProvider({ children }) {
   const [metas, setMetas] = useState([]);
 
   const apiUrl = import.meta.env.VITE_API_URL;
+
   async function fetchData() {
     if (!token) return;
     try {
       setLoading(true);
+
       const transacoesRes = await fetch(`${apiUrl}/transactions`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,13 +71,9 @@ export default function TransactionProvider({ children }) {
     if (valor === undefined || valor <= 0) {
       return;
     }
+
     const valorNumerico = parseFloat(valor);
 
-    if (tipo === "entrada") {
-      setSaldo((prevSaldo) => prevSaldo + valorNumerico);
-    } else {
-      setSaldo((prevSaldo) => prevSaldo - valorNumerico);
-    }
     try {
       const res = await fetch(`${apiUrl}/transactions`, {
         method: "POST",
@@ -91,6 +88,7 @@ export default function TransactionProvider({ children }) {
           descricao,
         }),
       });
+
       const data = await res.json();
       setTransacoes((prev) => [...prev, data]);
       return data;
@@ -98,9 +96,9 @@ export default function TransactionProvider({ children }) {
       console.error(err);
     }
   }
+
   function getAuthToken() {
-    const token = localStorage.getItem("token");
-    return token;
+    return localStorage.getItem("token");
   }
 
   async function addMeta(nome, desc, obj, data) {
@@ -122,6 +120,7 @@ export default function TransactionProvider({ children }) {
           dataConclusao: data,
         }),
       });
+
       const responseData = await newMeta.json();
       setMetas((prev) => [...prev, responseData]);
       return data;
@@ -139,10 +138,12 @@ export default function TransactionProvider({ children }) {
           Authorization: `Bearer ${token}`,
         },
       });
+
       const deleteData = await deletedCategoria.json();
       setCategorias((prev) =>
         prev.filter((categoria) => categoria.id !== deleteData.id),
       );
+
       return deleteData;
     } catch (err) {
       console.log(err.erro);
@@ -158,8 +159,10 @@ export default function TransactionProvider({ children }) {
           Authorization: `Bearer ${token}`,
         },
       });
+
       const deleteData = await deletedMeta.json();
       setMetas((prev) => prev.filter((meta) => meta.id !== deleteData.id));
+
       return deleteData;
     } catch (err) {
       console.log(err.erro);
@@ -187,7 +190,9 @@ export default function TransactionProvider({ children }) {
           valor: valorNumerico,
         }),
       });
+
       const res = await newMetaValue.json();
+
       setMetas((prevMetas) =>
         prevMetas.map((meta) =>
           meta.id === res.id
@@ -199,16 +204,17 @@ export default function TransactionProvider({ children }) {
         ),
       );
 
-      setSaldo((prevSaldo) => prevSaldo - valorNumerico);
       return res;
     } catch (err) {
       console.error(err);
     }
   }
+
   async function addCategoria(nomeCategoria, novoOrcamento) {
     if (novoOrcamento === undefined || novoOrcamento <= 0) {
       return;
     }
+
     try {
       const newCategoria = await fetch(`${apiUrl}/categories`, {
         method: "POST",
@@ -221,6 +227,7 @@ export default function TransactionProvider({ children }) {
           orcamento: Number(novoOrcamento),
         }),
       });
+
       const responseData = await newCategoria.json();
       setCategorias((prev) => [...prev, responseData]);
       return responseData;
@@ -232,7 +239,6 @@ export default function TransactionProvider({ children }) {
   const ctxValue = {
     categorias,
     transacoes,
-    saldo,
     metas,
     mes,
     loading,

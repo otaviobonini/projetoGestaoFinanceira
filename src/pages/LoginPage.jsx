@@ -32,6 +32,9 @@ export default function LoginPage() {
       }
       console.log(res);
       localStorage.setItem("token", res.token);
+      const expiration = new Date();
+      expiration.setHours(expiration.getDate() + 7);
+      localStorage.setItem("expiration", expiration.toISOString());
       setToken(res.token);
 
       setSucess(true);
