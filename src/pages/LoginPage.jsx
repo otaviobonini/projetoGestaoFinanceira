@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { TransactionContext } from "../store/transctionsContext";
+import { AuthContext } from "../store/authContext";
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState(null);
   const [success, setSucess] = useState(false);
-  const [isSubmiting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { setToken } = useContext(TransactionContext);
+  const { login } = useContext(AuthContext);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   async function onSubmit(data) {
@@ -30,17 +30,10 @@ export default function LoginPage() {
         setError(res.error);
         return;
       }
-      console.log(res);
-      localStorage.setItem("token", res.token);
-      const expiration = new Date();
-      expiration.setHours(expiration.getDate() + 7);
-      localStorage.setItem("expiration", expiration.toISOString());
-      setToken(res.token);
-
+      login(res.token);
       setSucess(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+
+      navigate("/");
     } catch (error) {
       console.error("Erro:", error.message);
       console.log(JSON.stringify(data));
@@ -75,10 +68,10 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          disabled={isSubmiting}
+          disabled={isSubmitting}
           className="bg-green-400 rounded-md p-2 text-white mb-4"
         >
-          {isSubmiting ? "Enviando" : "Entrar"}
+          {isSubmitting ? "Enviando" : "Entrar"}
         </button>
         <NavLink to={"/register"}>
           Não tem uma conta?{" "}

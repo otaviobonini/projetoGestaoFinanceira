@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import AdicionarValorMeta from "./AdicionarValorMeta";
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
+import { MetasContext } from "../../store/metasContext";
 
 export default function CustomMetasContainer({
   nome,
@@ -17,7 +17,7 @@ export default function CustomMetasContainer({
   valor,
 }) {
   const dataObj = new Date(data);
-  const { deleteMeta } = useContext(TransactionContext);
+  const { deleteMeta } = useContext(MetasContext);
   async function handleDelete() {
     await deleteMeta(metaId);
   }

@@ -1,11 +1,13 @@
 import CategoriasContainers from "./CategoriasContainers";
 import NovaCategoria from "./NovaCategoria";
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
 import VisaoGastosTotais from "./VisaoGastosTotais";
+import { TransactionContext } from "../../store/transactionsContext";
+import { CategoriasContext } from "../../store/categoriasContext";
 
 export default function Categorias() {
-  const { categorias, transacoes } = useContext(TransactionContext);
+  const { transacoes } = useContext(TransactionContext);
+  const { categorias } = useContext(CategoriasContext);
   return (
     <div className="  h-full py-16 bg-gray-100 px-8">
       <h1 className="text-2xl font-bold">Categorias</h1>

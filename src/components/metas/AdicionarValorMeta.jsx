@@ -1,12 +1,12 @@
 import { useState, useRef, useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { MetasContext } from "../../store/metasContext";
 
 export default function AdicionarValorMeta({ metaId }) {
   const [showForm, setShowForm] = useState(false);
   const guardarValorMetaRef = useRef();
-  const { addValorMeta } = useContext(TransactionContext);
+  const { addValorMeta } = useContext(MetasContext);
 
   function handleSubmit() {
     const valorGuardado = guardarValorMetaRef.current.value;

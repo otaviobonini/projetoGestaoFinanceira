@@ -1,7 +1,6 @@
 import MetasContainer from "./MetasContainer";
 import NovaMeta from "./NovaMeta";
 import CustomMetasContainer from "./CustomMetasContainers";
-import { TransactionContext } from "../../store/transctionsContext";
 
 import {
   faPiggyBank,
@@ -10,9 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import Loading from "../Loading";
+import { MetasContext } from "../../store/metasContext";
 
 export default function Metas() {
-  const { metas, loading } = useContext(TransactionContext);
+  const { metas, loading } = useContext(MetasContext);
 
   const metasConcluidas = metas.filter(
     (meta) => Number(meta.valorGuardado) >= Number(meta.objetivo),

@@ -1,12 +1,12 @@
-import TransactionProvider from "./store/transctionsContext";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/index";
+import AppProvider from "./store/appContext";
 
 function App() {
   return (
-    <TransactionProvider>
+    <AppProvider>
       <RouterProvider router={router}></RouterProvider>
-    </TransactionProvider>
+    </AppProvider>
   );
 }
 

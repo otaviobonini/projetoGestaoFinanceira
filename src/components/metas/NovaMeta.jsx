@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext"; // ou outro context que você criar para metas
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { MetasContext } from "../../store/metasContext";
 
 export default function NovaMeta() {
   const [showForm, setShowForm] = useState(false);
@@ -10,7 +10,7 @@ export default function NovaMeta() {
   const descMetaRef = useRef();
   const objetivoMetaRef = useRef();
   const dataConclusaoMetaRef = useRef();
-  const { addMeta } = useContext(TransactionContext); // função que você vai criar no context
+  const { addMeta } = useContext(MetasContext);
 
   function handleSubmit() {
     const nome = nomeMetaRef.current.value;

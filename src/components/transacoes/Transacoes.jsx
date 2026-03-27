@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
 import UltimasTransacoes from "../visaoGeral/UltimasTransacoes";
 import NovoSaldo from "./AdicionarSaldo";
 import Loading from "../Loading";
 import Skeleton from "../Skeleton";
+import { TransactionContext } from "../../store/transactionsContext";
+import { MetasContext } from "../../store/metasContext";
 
 export default function Transacoes() {
-  const { transacoes, metas, loading } = useContext(TransactionContext);
+  const { transacoes, loading } = useContext(TransactionContext);
+  const { metas } = useContext(MetasContext);
 
   const entrada = transacoes
     .filter((t) => t.tipo === "entrada")

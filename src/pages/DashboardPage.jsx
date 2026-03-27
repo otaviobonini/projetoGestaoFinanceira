@@ -6,10 +6,10 @@ import DateFilter from "../components/visaoGeral/DateFilter";
 import { variaveisGrafico } from "../data/grafico";
 import calcularPorcentagemMes from "../utils/porcentagemAoMes";
 import { useContext } from "react";
-import { TransactionContext } from "../store/transctionsContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
 import UltimasTransacoes from "../components/visaoGeral/UltimasTransacoes";
 import Skeleton from "../components/Skeleton";
+import { TransactionContext } from "../store/transactionsContext";
 export default function DashboardPage() {
   const { transacoes, mes, loading } = useContext(TransactionContext);
   const { colors, data, labels, porcentagens } = variaveisGrafico(

@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
+import { TransactionContext } from "../../store/transactionsContext";
+import { CategoriasContext } from "../../store/categoriasContext";
 export default function NovaTransacao() {
   const [showForm, setShowForm] = useState(false);
   const [tipo, setTipo] = useState("entrada");
-  const { addTransacao, categorias } = useContext(TransactionContext);
+  const { addTransacao } = useContext(TransactionContext);
+  const { categorias } = useContext(CategoriasContext);
   const valor = useRef();
   const categoria = useRef();
   const descricao = useRef();

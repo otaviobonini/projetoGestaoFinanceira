@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
+import { CategoriasContext } from "../../store/categoriasContext";
 export default function CategoriasContainers({
   nomeCategoria,
   orcamento,
   gasto,
   id,
 }) {
-  const { deleteCategoria } = useContext(TransactionContext);
+  const { deleteCategoria } = useContext(CategoriasContext);
   async function handleDelete() {
     await deleteCategoria(id);
   }

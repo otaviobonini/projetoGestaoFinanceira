@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { useContext } from "react";
-import { TransactionContext } from "../../store/transctionsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { CategoriasContext } from "../../store/categoriasContext";
 
 export default function NovaCategoria() {
   const [showForm, setShowForm] = useState(false);
   const categoriaRef = useRef();
   const orcamentoRef = useRef();
-  const { addCategoria } = useContext(TransactionContext);
+  const { addCategoria } = useContext(CategoriasContext);
 
   function handleSubmit() {
     const novaCategoria = categoriaRef.current.value;

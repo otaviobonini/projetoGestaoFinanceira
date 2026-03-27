@@ -7,12 +7,14 @@ import {
 import { useContext } from "react";
 
 import calcularEconomiaMensal from "../../utils/economiaMensal";
-import { TransactionContext } from "../../store/transctionsContext";
 import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 import Loading from "../Loading";
+import { TransactionContext } from "../../store/transactionsContext";
+import { MetasContext } from "../../store/metasContext";
 
 export default function DashboardContainers() {
-  const { transacoes, metas, mes, loading } = useContext(TransactionContext);
+  const { transacoes, mes, loading } = useContext(TransactionContext);
+  const { metas } = useContext(MetasContext);
   const { economiaAtual } = calcularEconomiaMensal(transacoes, mes);
   const {
     totalMes: totalGanho,
