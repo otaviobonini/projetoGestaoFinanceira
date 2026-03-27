@@ -1,6 +1,6 @@
-import MetasContainer from "./MetasContainer";
-import NovaMeta from "./NovaMeta";
-import CustomMetasContainer from "./CustomMetasContainers";
+import MetasContainer from "../components/metas/MetasContainer";
+import NovaMeta from "../components/metas/NovaMeta";
+import CustomMetasContainer from "../components/metas/CustomMetasContainers";
 
 import {
   faPiggyBank,
@@ -8,10 +8,10 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import Loading from "../Loading";
-import { MetasContext } from "../../store/metasContext";
+import Loading from "../components/Loading";
+import { MetasContext } from "../store/metasContext";
 
-export default function Metas() {
+export default function MetasPage() {
   const { metas, loading } = useContext(MetasContext);
 
   const metasConcluidas = metas.filter(

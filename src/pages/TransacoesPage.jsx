@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import UltimasTransacoes from "../visaoGeral/UltimasTransacoes";
-import NovoSaldo from "./AdicionarSaldo";
-import Loading from "../Loading";
-import Skeleton from "../Skeleton";
-import { TransactionContext } from "../../store/transactionsContext";
-import { MetasContext } from "../../store/metasContext";
+import UltimasTransacoes from "../components/visaoGeral/UltimasTransacoes";
+import NovoSaldo from "../components/transacoes/AdicionarSaldo";
 
-export default function Transacoes() {
+import Skeleton from "../components/Skeleton";
+import { TransactionContext } from "../store/transactionsContext";
+import { MetasContext } from "../store/metasContext";
+
+export default function TransacoesPage() {
   const { transacoes, loading } = useContext(TransactionContext);
   const { metas } = useContext(MetasContext);
 

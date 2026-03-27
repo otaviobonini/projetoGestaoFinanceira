@@ -8,9 +8,9 @@ import NotFoundPage from "../pages/NotFoundPage";
 import { action as logoutAction } from "../pages/Logout";
 
 const DashboardPage = lazy(() => import("../pages/DashboardPage"));
-const Transacoes = lazy(() => import("../components/transacoes/Transacoes"));
-const Metas = lazy(() => import("../components/metas/Metas"));
-const Categorias = lazy(() => import("../components/categorias/Categorias"));
+const TransacoesPage = lazy(() => import("../pages/TransacoesPage"));
+const MetasPage = lazy(() => import("../pages/MetasPage"));
+const CategoriasPage = lazy(() => import("../pages/CategoriasPage"));
 
 export const router = createBrowserRouter([
   {
@@ -38,15 +38,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "transacoes",
-        element: <Transacoes />,
+        element: <TransacoesPage />,
       },
       {
         path: "metas",
-        element: <Metas />,
+        element: <MetasPage />,
       },
       {
         path: "categorias",
-        element: <Categorias />,
+        element: <CategoriasPage />,
       },
       { path: "logout", action: logoutAction },
     ],

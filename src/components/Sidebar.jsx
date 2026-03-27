@@ -101,7 +101,7 @@ export default function Sidebar() {
           <Form action="/logout" method="post">
             <button
               className=" w-full 
-      text-left 
+     
       bg-gray-500 
       text-white 
       font-semibold 

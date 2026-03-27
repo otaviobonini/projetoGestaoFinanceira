@@ -1,11 +1,11 @@
-import CategoriasContainers from "./CategoriasContainers";
-import NovaCategoria from "./NovaCategoria";
+import CategoriasContainers from "../components/categorias/CategoriasContainers";
+import NovaCategoria from "../components/categorias/NovaCategoria";
 import { useContext } from "react";
-import VisaoGastosTotais from "./VisaoGastosTotais";
-import { TransactionContext } from "../../store/transactionsContext";
-import { CategoriasContext } from "../../store/categoriasContext";
+import VisaoGastosTotais from "../components/categorias/VisaoGastosTotais";
+import { TransactionContext } from "../store/transactionsContext";
+import { CategoriasContext } from "../store/categoriasContext";
 
-export default function Categorias() {
+export default function CategoriasPage() {
   const { transacoes } = useContext(TransactionContext);
   const { categorias } = useContext(CategoriasContext);
   return (
