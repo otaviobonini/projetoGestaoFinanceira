@@ -5,7 +5,7 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-
+import { useMemo } from "react";
 import calcularEconomiaMensal from "../../utils/economiaMensal";
 import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 import Loading from "../Loading";
@@ -22,12 +22,13 @@ export default function DashboardContainers() {
 
     saldo: saldoTotal,
   } = calcularPorcentagemMes(transacoes, "entrada", mes);
+
   const { totalMes: totalGasto, porcentagem: porcentagemGasto } =
     calcularPorcentagemMes(transacoes, "saida", mes);
 
-  const metasGuardadas = metas
-    .map((meta) => Number(meta.valorGuardado))
-    .reduce((acc, value) => acc + value, 0);
+  const metasGuardadas = useMemo(() => {
+    return metas.reduce((acc, meta) => acc + Number(meta.valorGuardado), 0);
+  }, [metas]);
 
   const saldo = saldoTotal - metasGuardadas;
 

@@ -4,10 +4,12 @@ import { useContext } from "react";
 import VisaoGastosTotais from "../components/categorias/VisaoGastosTotais";
 import { TransactionContext } from "../store/transactionsContext";
 import { CategoriasContext } from "../store/categoriasContext";
+import { useGastosPorCategoria } from "../hooks/useGastosPorCategoria";
 
 export default function CategoriasPage() {
   const { transacoes } = useContext(TransactionContext);
   const { categorias } = useContext(CategoriasContext);
+  const gastosPorCategoria = useGastosPorCategoria(transacoes);
   return (
     <div className="  h-full py-16 bg-gray-100 px-8">
       <h1 className="text-2xl font-bold">Categorias</h1>
@@ -19,26 +21,15 @@ export default function CategoriasPage() {
       <VisaoGastosTotais></VisaoGastosTotais>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 py-8  ">
         {categorias.map((categoria) => {
-          const mes = new Date().getMonth();
-          const gasto = transacoes
-            .filter(
-              (t) =>
-                t.categoriaId === categoria.id &&
-                t.tipo === "saida" &&
-                new Date(t.createdAt).getMonth() === mes,
-            )
-            .reduce((acc, t) => acc + Math.abs(t.valor), 0);
-
+          const gasto = gastosPorCategoria[categoria.id] || 0;
           return (
-            <>
-              <CategoriasContainers
-                key={categoria.id}
-                id={categoria.id}
-                nomeCategoria={categoria.nome}
-                orcamento={categoria.orcamento}
-                gasto={gasto}
-              />
-            </>
+            <CategoriasContainers
+              key={categoria.id}
+              id={categoria.id}
+              nomeCategoria={categoria.nome}
+              orcamento={categoria.orcamento}
+              gasto={gasto}
+            />
           );
         })}
         <NovaCategoria></NovaCategoria>
