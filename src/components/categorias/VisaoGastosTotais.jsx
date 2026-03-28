@@ -48,7 +48,7 @@ export default function VisaoGastosTotais() {
         {loading ? (
           <Skeleton className="w-40 h-8"></Skeleton>
         ) : (
-          <h1 className="font-bold text-3xl">
+          <h1 className="font-bold text-2xl sm:text-3xl">
             R${" "}
             {gastoTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}{" "}
             <label className="text-lg font-normal text-gray-400">
@@ -59,9 +59,9 @@ export default function VisaoGastosTotais() {
             </label>
           </h1>
         )}
-        <label className=" w-16 h-16 ml-auto flex items-center justify-center bg-blue-300 rounded-full">
+        <label className=" w-12 h-12 ml-auto flex items-center justify-center sm:w-16 sm:h-16 bg-blue-300 rounded-full">
           <FontAwesomeIcon
-            className=" text-4xl text-blue-600"
+            className=" text-2xl sm:text-4xl text-blue-600"
             icon={faPiggyBank}
           />
         </label>
