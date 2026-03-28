@@ -6,21 +6,19 @@ import DateFilter from "../components/visaoGeral/DateFilter";
 import { variaveisGrafico } from "../data/grafico";
 import calcularPorcentagemMes from "../utils/porcentagemAoMes";
 import { useContext } from "react";
+import { useMemo } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 import UltimasTransacoes from "../components/visaoGeral/UltimasTransacoes";
 import Skeleton from "../components/Skeleton";
 import { TransactionContext } from "../store/transactionsContext";
 export default function DashboardPage() {
   const { transacoes, mes, loading } = useContext(TransactionContext);
-  const { colors, data, labels, porcentagens } = variaveisGrafico(
-    transacoes,
-    mes,
-  );
-  const { totalMes: totalGasto } = calcularPorcentagemMes(
-    transacoes,
-    "saida",
-    mes,
-  );
+  const { colors, data, labels, porcentagens } = useMemo(() => {
+    return variaveisGrafico(transacoes, mes);
+  }, [transacoes, mes]);
+  const { totalMes: totalGasto } = useMemo(() => {
+    return calcularPorcentagemMes(transacoes, "saida", mes);
+  }, [transacoes, mes]);
   return (
     <>
       {" "}

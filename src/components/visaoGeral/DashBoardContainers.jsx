@@ -19,7 +19,6 @@ export default function DashboardContainers() {
   const {
     totalMes: totalGanho,
     porcentagem: porcentagemGanho,
-
     saldo: saldoTotal,
   } = calcularPorcentagemMes(transacoes, "entrada", mes);
 
