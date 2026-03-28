@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { MetasContext } from "../../store/metasContext";
+import { createPortal } from "react-dom";
 
 export default function NovaMeta() {
   const [showForm, setShowForm] = useState(false);
@@ -10,13 +11,18 @@ export default function NovaMeta() {
   const descMetaRef = useRef();
   const objetivoMetaRef = useRef();
   const dataConclusaoMetaRef = useRef();
+  const [error, setError] = useState(false);
   const { addMeta } = useContext(MetasContext);
 
   function handleSubmit() {
+    setError(false);
     const nome = nomeMetaRef.current.value;
     const desc = descMetaRef.current.value;
     const obj = objetivoMetaRef.current.value;
     const data = dataConclusaoMetaRef.current.value;
+    if (!nome || obj <= 0 || !data || !desc) {
+      return setError(true);
+    }
 
     addMeta(nome, desc, obj, data);
     setShowForm(false);
@@ -37,59 +43,73 @@ export default function NovaMeta() {
         </p>
       </div>
 
-      {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
-          <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
-            <p className="font-semibold text-lg">
-              Insira os dados da nova meta
-            </p>
+      {showForm &&
+        createPortal(
+          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
+            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+              <p className="font-semibold text-lg">
+                Insira os dados da nova meta
+              </p>
+              {error && (
+                <p className="text-red-500 text-sm mt-2 font-semibold">
+                  Insira dados válidos.
+                </p>
+              )}
 
-            <input
-              ref={nomeMetaRef}
-              type="text"
-              placeholder="Nome da meta"
-              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
-            />
+              <input
+                ref={nomeMetaRef}
+                type="text"
+                onChange={() => setError(false)}
+                placeholder="Nome da meta"
+                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+              />
 
-            <input
-              ref={descMetaRef}
-              type="text"
-              placeholder="Descrição da meta"
-              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
-            />
+              <input
+                ref={descMetaRef}
+                onChange={() => setError(false)}
+                type="text"
+                placeholder="Descrição da meta"
+                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+              />
 
-            <input
-              ref={dataConclusaoMetaRef}
-              type="date"
-              placeholder="Data para conclusão da meta"
-              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
-            />
+              <input
+                ref={dataConclusaoMetaRef}
+                type="date"
+                onChange={() => setError(false)}
+                placeholder="Data para conclusão da meta"
+                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+              />
 
-            <input
-              ref={objetivoMetaRef}
-              type="number"
-              placeholder="Valor da meta"
-              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
-            />
+              <input
+                ref={objetivoMetaRef}
+                type="number"
+                onChange={() => setError(false)}
+                placeholder="Valor da meta"
+                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+              />
 
-            <div className="flex gap-2 mt-4">
-              <button
-                onClick={handleSubmit}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
-              >
-                Concluir
-              </button>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+                >
+                  Concluir
+                </button>
 
-              <button
-                onClick={() => setShowForm(false)}
-                className="bg-gray-300 px-4 py-2 rounded-lg w-full"
-              >
-                Cancelar
-              </button>
+                <button
+                  onClick={() => {
+                    setShowForm(false);
+                    setError(false);
+                  }}
+                  className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.getElementById("modal"),
+        )}
     </>
   );
 }

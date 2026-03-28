@@ -2,16 +2,22 @@ import { useState, useRef, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { MetasContext } from "../../store/metasContext";
+import { createPortal } from "react-dom";
 
 export default function AdicionarValorMeta({ metaId }) {
   const [showForm, setShowForm] = useState(false);
+  const [error, setError] = useState(false);
   const guardarValorMetaRef = useRef();
   const { addValorMeta } = useContext(MetasContext);
 
   function handleSubmit() {
+    setError(false);
     const valorGuardado = guardarValorMetaRef.current.value;
 
-    if (!valorGuardado || valorGuardado <= 0) return;
+    if (!valorGuardado || valorGuardado <= 0) {
+      setError(true);
+      return;
+    }
 
     addValorMeta(valorGuardado, Number(metaId));
 
@@ -28,38 +34,48 @@ export default function AdicionarValorMeta({ metaId }) {
         <FontAwesomeIcon icon={faPlus} /> Adicionar Valor
       </button>
 
-      {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
-          <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
-            <p className="font-semibold text-lg">
-              Insira o valor à guardar na meta.
-            </p>
+      {showForm &&
+        createPortal(
+          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
+            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+              <p className="font-semibold text-lg">
+                Insira o valor à guardar na meta.
+              </p>
 
-            <input
-              ref={guardarValorMetaRef}
-              type="number"
-              placeholder="Valor a ser guardado"
-              className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
-            />
+              <input
+                ref={guardarValorMetaRef}
+                type="number"
+                onChange={() => setError(false)}
+                placeholder="Valor a ser guardado"
+                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+              />
+              {error && (
+                <p className="text-red-500 font-semibold">
+                  Insira um valor válido.
+                </p>
+              )}
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+                >
+                  Concluir
+                </button>
 
-            <div className="flex gap-2 mt-4">
-              <button
-                onClick={handleSubmit}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
-              >
-                Concluir
-              </button>
-
-              <button
-                onClick={() => setShowForm(false)}
-                className="bg-gray-300 px-4 py-2 rounded-lg w-full"
-              >
-                Cancelar
-              </button>
+                <button
+                  onClick={() => {
+                    setShowForm(false);
+                    setError(false);
+                  }}
+                  className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.getElementById("modal"),
+        )}
     </>
   );
 }
