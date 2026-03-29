@@ -23,7 +23,7 @@ export default function NovoSaldo() {
     <>
       {" "}
       <button
-        className="bg-green-400 text-black text-lg font-semibold px-4 py-2  rounded-lg shadow-lg  hover:bg-green-600"
+        className="bg-green-400 text-black text-lg font-semibold px-4 py-2  rounded-md shadow-lg  hover:bg-green-600"
         onClick={() => setShowForm(!showForm)}
       >
         {" "}

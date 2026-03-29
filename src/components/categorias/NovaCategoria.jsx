@@ -44,24 +44,25 @@ export default function NovaCategoria() {
       </div>
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4 ">
-            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
-              <p className="font-semibold text-lg">
-                Insira o nome da nova categoria.
-              </p>
+          <div className="fixed inset-0 flex items-center justify-center  bg-black/40 backdrop-blur-md z-50 px-4 ">
+            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+              <h1 className="font-semibold text-lg py-2">Nova categoria.</h1>
+              <p>Crie uma nova categoria e defina um orçamento.</p>
 
               <input
                 ref={categoriaRef}
                 type="text"
                 placeholder="Digite o nome da categoria"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-4 w-full"
+                onChange={() => setError(false)}
               />
 
               <input
                 ref={orcamentoRef}
                 type="number"
-                placeholder="Digite o seu orçamento"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+                placeholder="R$ 0.00"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-4 w-full"
+                onChange={() => setError(false)}
               />
               {error && (
                 <p className="text-red-500 font-semibold px-2 mt-2">
@@ -71,7 +72,7 @@ export default function NovaCategoria() {
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-2xl w-full transtion duration-500 hover:bg-blue-700"
                 >
                   Concluir
                 </button>
@@ -81,7 +82,7 @@ export default function NovaCategoria() {
                     setShowForm(false);
                     setError(false);
                   }}
-                  className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+                  className="bg-gray-200 px-4 py-2 rounded-2xl w-full transition duration-500 hover:bg-gray-300"
                 >
                   Cancelar
                 </button>

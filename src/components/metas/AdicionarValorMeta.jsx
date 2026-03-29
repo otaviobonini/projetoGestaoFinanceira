@@ -36,7 +36,7 @@ export default function AdicionarValorMeta({ metaId }) {
 
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
+          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md z-50 px-4">
             <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl">
               <h1 className="font-semibold text-lg py-4">Adicionar Valor</h1>
               <p className=" text-sm">Insira o valor que deseja guardar.</p>

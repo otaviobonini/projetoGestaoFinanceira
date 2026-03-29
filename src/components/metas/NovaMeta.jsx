@@ -45,15 +45,17 @@ export default function NovaMeta() {
 
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4 ">
-            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
-              <p className="font-semibold text-lg text-center">
+          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md z-50 px-4 ">
+            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+              <p className="font-semibold text-lg text-left py-2">
                 Criar Nova Meta
               </p>
-              {error && (
-                <p className="text-red-500 text-sm mt-2 font-semibold">
+              {error ? (
+                <p className="text-red-500  py-2 mb-2 font-semibold">
                   Insira dados válidos.
                 </p>
+              ) : (
+                <p className="py-2 mb-2">Preencha as informações abaixo.</p>
               )}
               <p className="font-semibold">Nome da Meta</p>
               <input
@@ -61,7 +63,7 @@ export default function NovaMeta() {
                 type="text"
                 onChange={() => setError(false)}
                 placeholder="Ex: Viajar para a Europa"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
               />
               <p className="font-semibold mt-2">Descrição da Meta</p>
               <input
@@ -69,7 +71,7 @@ export default function NovaMeta() {
                 onChange={() => setError(false)}
                 type="text"
                 placeholder="Ex: Economizar para viagem"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
               />
 
               <p className="font-semibold mt-2">Data para Conclusão da meta</p>
@@ -78,7 +80,7 @@ export default function NovaMeta() {
                 type="date"
                 onChange={() => setError(false)}
                 placeholder="Data para conclusão da meta"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
               />
               <p className="font-semibold mt-2">Valor da Meta</p>
               <input
@@ -86,13 +88,13 @@ export default function NovaMeta() {
                 type="number"
                 onChange={() => setError(false)}
                 placeholder="Valor da meta"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-2 w-full focus:ring-1 focus:ring-blue-500 focus:outline-none"
               />
 
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-600 transition duration-300"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-2xl w-full hover:bg-blue-600 transition duration-500"
                 >
                   Concluir
                 </button>
@@ -102,7 +104,7 @@ export default function NovaMeta() {
                     setShowForm(false);
                     setError(false);
                   }}
-                  className="border px-4 py-2 rounded-lg w-full hover:bg-gray-300  hover:border transition duration-300"
+                  className="border px-4 py-2 rounded-2xl w-full hover:bg-gray-300  hover:border transition duration-500"
                 >
                   Cancelar
                 </button>

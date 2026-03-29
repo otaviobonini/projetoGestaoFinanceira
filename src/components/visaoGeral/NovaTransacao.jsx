@@ -50,12 +50,13 @@ export default function NovaTransacao() {
       </button>{" "}
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
-            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md z-50 px-4">
+            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
               {" "}
-              <p className="font-semibold text-lg py-2">
-                Insira os dados da transação.
-              </p>
+              <div className="py-2">
+                <h1 className="font-semibold text-lg ">Nova Transação.</h1>
+                <p className="mb-2 ">Registre uma entrada ou saída</p>
+              </div>
               <div className="flex gap-4">
                 <button
                   onClick={() => {
@@ -63,8 +64,8 @@ export default function NovaTransacao() {
                   }}
                   className={
                     tipo === "entrada"
-                      ? "bg-green-600 text-white p-2 rounded-lg w-full font-semibold"
-                      : "bg-green-400 text-white p-2 w-full rounded-lg"
+                      ? "bg-green-600 text-white p-2 rounded-xl w-full font-semibold transform duration-200 hover:bg-green-700"
+                      : "bg-green-400 text-white p-2 w-full rounded-xl transform duration-200 hover:bg-green-500"
                   }
                 >
                   Entrada
@@ -72,8 +73,8 @@ export default function NovaTransacao() {
                 <button
                   className={
                     tipo === "saida"
-                      ? "bg-red-600 text-white p-2 rounded-lg w-full font-semibold"
-                      : "bg-red-400 text-white p-2 w-full rounded-lg"
+                      ? "bg-red-600 text-white p-2 rounded-xl w-full font-semibold transform duration-200 hover:bg-red-700"
+                      : "bg-red-400 text-white p-2 w-full rounded-xl transform duration-200 hover:bg-red-500"
                   }
                   onClick={() => {
                     setTipo("saida");
@@ -83,7 +84,7 @@ export default function NovaTransacao() {
                 </button>
               </div>
               {error && (
-                <p className="text-red-500 font-semibold text-sm mt-2">
+                <p className="text-red-500 w-full font-semibold text-sm mt-2">
                   Insira um valor maior que zero
                 </p>
               )}
@@ -92,14 +93,14 @@ export default function NovaTransacao() {
                   handleChange(e.target.value);
                 }}
                 type="number"
-                placeholder="Digite o valor da transação"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-2 w-full"
+                placeholder="R$ 0.00"
+                className="border border-gray-300 rounded-2xl    px-4 py-2 mt-2 w-full"
               />{" "}
               <input
                 ref={descricao}
                 type="text"
-                placeholder="Digite os detalhes da transação"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full"
+                placeholder="Descrição (opcional)"
+                className="border border-gray-300 rounded-2xl  px-4 py-2 mt-4 w-full"
               />{" "}
               <p className="mt-4">Insira a categoria da transação</p>{" "}
               {categorias.length > 0 ? (
