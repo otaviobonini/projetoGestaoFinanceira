@@ -37,17 +37,16 @@ export default function AdicionarValorMeta({ metaId }) {
       {showForm &&
         createPortal(
           <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
-            <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
-              <p className="font-semibold text-lg">
-                Insira o valor à guardar na meta.
-              </p>
+            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl">
+              <h1 className="font-semibold text-lg py-4">Adicionar Valor</h1>
+              <p className=" text-sm">Insira o valor que deseja guardar.</p>
 
               <input
                 ref={guardarValorMetaRef}
                 type="number"
                 onChange={() => setError(false)}
-                placeholder="Valor a ser guardado"
-                className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-72"
+                placeholder="Ex: 1500.00"
+                className="border border-gray-300 rounded-2xl px-4 py-2 mt-4 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               {error && (
                 <p className="text-red-500 font-semibold">
@@ -57,7 +56,7 @@ export default function AdicionarValorMeta({ metaId }) {
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+                  className="bg-blue-500  text-white px-4 py-2 rounded-2xl w-full transition duration-500 hover:bg-blue-700"
                 >
                   Concluir
                 </button>
@@ -67,7 +66,7 @@ export default function AdicionarValorMeta({ metaId }) {
                     setShowForm(false);
                     setError(false);
                   }}
-                  className="bg-gray-300 px-4 py-2 rounded-lg w-full"
+                  className="bg-gray-200 px-4 py-2 rounded-2xl w-full transition duration-500 hover:bg-gray-300"
                 >
                   Cancelar
                 </button>
