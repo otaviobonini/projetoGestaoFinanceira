@@ -42,7 +42,7 @@ export default function NovaTransacao() {
     <>
       {" "}
       <button
-        className="bg-green-400 text-black  text-lg font-semibold px-4 py-2  rounded-lg shadow-lg  hover:bg-green-600"
+        className="bg-green-400 text-black  text-lg font-semibold px-4 py-2  rounded-2xl shadow-lg  hover:bg-green-600 transtion duration-500 "
         onClick={() => setShowForm(!showForm)}
       >
         {" "}
@@ -64,8 +64,8 @@ export default function NovaTransacao() {
                   }}
                   className={
                     tipo === "entrada"
-                      ? "bg-green-600 text-white p-2 rounded-xl w-full font-semibold transform duration-200 hover:bg-green-700"
-                      : "bg-green-400 text-white p-2 w-full rounded-xl transform duration-200 hover:bg-green-500"
+                      ? "bg-green-600 text-white p-2 rounded-xl w-full font-semibold  hover:bg-green-700"
+                      : "bg-green-400 text-white p-2 w-full rounded-xl  hover:bg-green-500"
                   }
                 >
                   Entrada
@@ -73,8 +73,8 @@ export default function NovaTransacao() {
                 <button
                   className={
                     tipo === "saida"
-                      ? "bg-red-600 text-white p-2 rounded-xl w-full font-semibold transform duration-200 hover:bg-red-700"
-                      : "bg-red-400 text-white p-2 w-full rounded-xl transform duration-200 hover:bg-red-500"
+                      ? "bg-red-600 text-white p-2 rounded-xl w-full font-semibold  hover:bg-red-700"
+                      : "bg-red-400 text-white p-2 w-full rounded-xl  hover:bg-red-500"
                   }
                   onClick={() => {
                     setTipo("saida");
@@ -94,13 +94,13 @@ export default function NovaTransacao() {
                 }}
                 type="number"
                 placeholder="R$ 0.00"
-                className="border border-gray-300 rounded-2xl    px-4 py-2 mt-2 w-full"
+                className="border border-gray-300 rounded-2xl focus:ring-1 focus:ring-green-500 focus:outline-none    px-4 py-2 mt-2 w-full"
               />{" "}
               <input
                 ref={descricao}
                 type="text"
                 placeholder="Descrição (opcional)"
-                className="border border-gray-300 rounded-2xl  px-4 py-2 mt-4 w-full"
+                className="border border-gray-300 rounded-2xl  px-4 py-2 mt-4 w-full focus:ring-1 focus:ring-green-500 focus:outline-none"
               />{" "}
               <p className="mt-4">Insira a categoria da transação</p>{" "}
               {categorias.length > 0 ? (
@@ -123,7 +123,7 @@ export default function NovaTransacao() {
                   onClick={() => {
                     handleSubmit();
                   }}
-                  className="bg-green-500  mt-4 text-white px-4 py-2 rounded-lg w-full"
+                  className="bg-green-500  mt-4 text-white px-4 py-2 rounded-xl w-full hover:bg-green-600 transition duration-200 "
                 >
                   Concluir{" "}
                 </button>
@@ -132,7 +132,7 @@ export default function NovaTransacao() {
                     setShowForm(false);
                     setError(false);
                   }}
-                  className="bg-gray-300  mt-4 text-black px-4 py-2 rounded-lg w-full"
+                  className="bg-gray-300  mt-4 text-black px-4 py-2 rounded-xl w-full hover:bg-gray-400 transition duration-200 "
                 >
                   Cancelar
                 </button>{" "}
