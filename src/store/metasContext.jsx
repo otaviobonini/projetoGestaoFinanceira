@@ -6,6 +6,7 @@ export const MetasContext = createContext({
   loading: true,
   addMeta: () => {},
   addValorMeta: () => {},
+  removeValorMeta: () => {},
   deleteMeta: () => {},
 });
 
@@ -87,6 +88,42 @@ export default function MetasProvider({ children }) {
       console.log(err);
     }
   }
+  async function removeValorMeta(valor, id) {
+    if (!valor || valor <= 0) return;
+
+    const valorNumerico = Number(valor);
+
+    try {
+      const newMetaValue = await fetch(`${apiUrl}/metas/remove-value/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id,
+          valor: valorNumerico,
+        }),
+      });
+
+      const res = await newMetaValue.json();
+
+      setMetas((prevMetas) =>
+        prevMetas.map((meta) =>
+          meta.id === res.id
+            ? {
+                ...meta,
+                valorGuardado: Number(meta.valorGuardado) - valorNumerico,
+              }
+            : meta,
+        ),
+      );
+
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   async function addValorMeta(valor, id) {
     if (!valor || valor <= 0) return;
@@ -94,7 +131,7 @@ export default function MetasProvider({ children }) {
     const valorNumerico = Number(valor);
 
     try {
-      const newMetaValue = await fetch(`${apiUrl}/metas/${id}`, {
+      const newMetaValue = await fetch(`${apiUrl}/metas/add-value/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -131,6 +168,7 @@ export default function MetasProvider({ children }) {
     addMeta,
     deleteMeta,
     addValorMeta,
+    removeValorMeta,
   };
 
   return (

@@ -74,7 +74,7 @@ export default function CustomMetasContainer({
       <p className="mb-8">{desc}</p>
       <p className="text-sm font-bold text-gray-400">GUARDADO</p>
       <h2 className="font-bold text-2xl ">
-        {Number(valor).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}R${" "}
+        R$ {Number(valor).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}{" "}
         <span className="font-normal text-sm text-gray-500">
           / R$
           {Number(obj).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
