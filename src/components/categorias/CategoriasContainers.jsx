@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { CategoriasContext } from "../../store/categoriasContext";
 export default function CategoriasContainers({
   nomeCategoria,
@@ -38,7 +40,7 @@ export default function CategoriasContainers({
           onClick={handleDelete}
           className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
         >
-          Deletar
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
       <p className="text-gray-500 mb-2">

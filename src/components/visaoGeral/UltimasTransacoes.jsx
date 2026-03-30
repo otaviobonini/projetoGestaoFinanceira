@@ -1,8 +1,14 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../store/transactionsContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function UltimasTransacoes() {
-  const { transacoes } = useContext(TransactionContext);
+  const { transacoes, deleteTransacao } = useContext(TransactionContext);
+
+  function handleDelete(id) {
+    deleteTransacao(id);
+  }
   return (
     <div className=" mt-8 w-[360px]  sm:w-full  overflow-x-auto   bg-white py-8 rounded-2xl shadow-md ">
       <h1 className="text-2xl px-8 font-bold mb-2">Últimas Transações</h1>
@@ -14,6 +20,7 @@ export default function UltimasTransacoes() {
         <table className="w-full text-left">
           <thead className="bg-gray-50 text-gray-500 text-sm uppercase tracking-wide">
             <tr>
+              <th className="px-6 py-4">Ações</th>
               <th className="px-6 py-4">Valor</th>
               <th className="px-6 py-4">Operação</th>
               <th className="px-6 py-4">Categoria</th>
@@ -26,6 +33,14 @@ export default function UltimasTransacoes() {
             {transacoes && transacoes.length > 0 ? (
               [...transacoes].reverse().map((item, index) => (
                 <tr key={index} className="hover:bg-gray-50 transition-colors">
+                  <td>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="text-red-500 hover:text-red-700 transition-colors px-6 py-4"
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} />
+                    </button>
+                  </td>
                   <td
                     className={`px-6 py-4 font-semibold ${
                       item.tipo === "saida" ? "text-red-500" : "text-green-600"

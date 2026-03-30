@@ -3,10 +3,12 @@ import {
   faCalendarDays,
   faCheckCircle,
   faArrowTrendUp,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import AdicionarValorMeta from "./AdicionarValorMeta";
 import { useContext } from "react";
 import { MetasContext } from "../../store/metasContext";
+import RemoverValorMeta from "./RemoverValorMeta";
 
 export default function CustomMetasContainer({
   nome,
@@ -66,9 +68,9 @@ export default function CustomMetasContainer({
         </h1>{" "}
         <button
           onClick={handleDelete}
-          className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
+          className="bg-red-500 text-white h-fit ml-auto w-fit p-2 rounded-md hover:bg-red-700"
         >
-          Deletar
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
       <p className="mb-8">{desc}</p>
@@ -97,6 +99,7 @@ export default function CustomMetasContainer({
           <FontAwesomeIcon icon={faCalendarDays} /> Previsto: {formatedData}
         </p>
         <AdicionarValorMeta metaId={metaId}></AdicionarValorMeta>
+        <RemoverValorMeta metaId={metaId}></RemoverValorMeta>
       </div>
     </div>
   );

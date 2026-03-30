@@ -7,6 +7,7 @@ export const TransactionContext = createContext({
   loading: true,
   handleMes: () => {},
   addTransacao: () => {},
+  deleteTransacao: () => {},
 });
 
 export default function TransactionProvider({ children }) {
@@ -71,6 +72,29 @@ export default function TransactionProvider({ children }) {
     }
   }
 
+  async function deleteTransacao(id) {
+    if (!id) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${apiUrl}/transactions/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Erro ao excluir transação");
+      }
+
+      setTransacoes((prev) => prev.filter((t) => t.id !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   function handleMes(mes) {
     setMes(mes);
   }
@@ -81,6 +105,7 @@ export default function TransactionProvider({ children }) {
     loading,
     handleMes,
     addTransacao,
+    deleteTransacao,
   };
 
   return (
