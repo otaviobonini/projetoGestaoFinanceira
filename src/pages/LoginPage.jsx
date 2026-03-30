@@ -81,7 +81,7 @@ export default function LoginPage() {
         </NavLink>
         {error && (
           <p className="text-red-500 mt-3 capitalize text-sm text-center">
-            Erro: {error}
+            Error: {error}
           </p>
         )}
         {success && (

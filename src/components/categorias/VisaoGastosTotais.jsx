@@ -59,7 +59,7 @@ export default function VisaoGastosTotais() {
             </label>
           </h1>
         )}
-        <label className=" w-12 h-12 ml-auto flex items-center justify-center sm:w-16 sm:h-16 bg-blue-300 rounded-full">
+        <label className=" w-12 h-12 ml-auto  flex items-center justify-center sm:w-16 sm:h-16 bg-blue-300 rounded-full">
           <FontAwesomeIcon
             className=" text-2xl sm:text-4xl text-blue-600"
             icon={faPiggyBank}
