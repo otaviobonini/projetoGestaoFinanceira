@@ -1,13 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { CategoriasContext } from "../../store/categoriasContext";
+import ConfirmModal from "../ConfirmModal";
+
 export default function CategoriasContainers({
   nomeCategoria,
   orcamento,
   gasto,
   id,
 }) {
+  const [showConfirm, setShowConfirm] = useState(false);
   const { deleteCategoria } = useContext(CategoriasContext);
   async function handleDelete() {
     await deleteCategoria(id);
@@ -33,37 +36,49 @@ export default function CategoriasContainers({
         : "bg-red-500";
 
   return (
-    <div className="bg-white w-80 p-4 rounded-lg shadow-md">
-      <div className="flex justify-between items-start ">
-        <h1 className="text-2xl font-bold mb-4"> {nomeCategoria}</h1>
-        <button
-          onClick={handleDelete}
-          className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-      </div>
-      <p className="text-gray-500 mb-2">
-        Orçamento: R${" "}
-        {Number(orcamento).toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-        })}
-      </p>
-      <h2 className="font-semibold mb-4">
-        Gasto: R${" "}
-        {Number(gasto).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
-      </h2>
+    <>
+      <div className="bg-white w-80 p-4 rounded-lg shadow-md">
+        <div className="flex justify-between items-start ">
+          <h1 className="text-2xl font-bold mb-4"> {nomeCategoria}</h1>
+          <button
+            onClick={() => setShowConfirm(true)}
+            className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+        </div>
+        <p className="text-gray-500 mb-2">
+          Orçamento: R${" "}
+          {Number(orcamento).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+          })}
+        </p>
+        <h2 className="font-semibold mb-4">
+          Gasto: R${" "}
+          {Number(gasto).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+        </h2>
 
-      {/* Barra de progresso */}
-      <div className="bg-gray-300  rounded-full overflow-hidden">
-        <div
-          className={`h-2 rounded-full transition-all duration-500 ${barColor}`}
-          style={{ width: `${percent}%` }}
-        ></div>
+        {/* Barra de progresso */}
+        <div className="bg-gray-300  rounded-full overflow-hidden">
+          <div
+            className={`h-2 rounded-full transition-all duration-500 ${barColor}`}
+            style={{ width: `${percent}%` }}
+          ></div>
+        </div>
+        <p className={`font-bold text-right ${textColor}`}>
+          {percent.toFixed(2)}%
+        </p>
       </div>
-      <p className={`font-bold text-right ${textColor}`}>
-        {percent.toFixed(2)}%
-      </p>
-    </div>
+      {showConfirm && (
+        <ConfirmModal
+          message={`Tem certeza que deseja deletar ${nomeCategoria} e todas suas transações associadas a ela?`}
+          onConfirm={() => {
+            handleDelete(id);
+            setShowConfirm(false);
+          }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
+    </>
   );
 }
