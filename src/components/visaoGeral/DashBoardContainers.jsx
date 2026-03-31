@@ -37,7 +37,7 @@ export default function DashboardContainers() {
         <Loading />
       ) : (
         <div className="bg-green-400 h-48 rounded-2xl p-8 shadow-lg">
-          <h1 className="text-l font-semibold">SALDO ATUAL</h1>
+          <h1 className="text-l font-semibold ">SALDO ATUAL</h1>
 
           <p className="font-bold text-3xl">
             R$ {saldo.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
