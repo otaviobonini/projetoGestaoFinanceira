@@ -73,7 +73,7 @@ export default function CategoriasContainers({
         <ConfirmModal
           message={`Tem certeza que deseja deletar ${nomeCategoria} e todas suas transações associadas a ela?`}
           onConfirm={() => {
-            handleDelete(id);
+            handleDelete();
             setShowConfirm(false);
           }}
           onCancel={() => setShowConfirm(false)}
