@@ -72,9 +72,13 @@ export default function CategoriasContainers({
       {showConfirm && (
         <ConfirmModal
           message={`Tem certeza que deseja deletar ${nomeCategoria} e todas suas transações associadas a ela?`}
-          onConfirm={() => {
-            handleDelete();
-            setShowConfirm(false);
+          onConfirm={async () => {
+            try {
+              await handleDelete();
+              setShowConfirm(false);
+            } catch (error) {
+              console.error("Erro ao deletar categoria:", error);
+            }
           }}
           onCancel={() => setShowConfirm(false)}
         />
