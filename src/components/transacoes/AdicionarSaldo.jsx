@@ -15,7 +15,7 @@ export default function NovoSaldo() {
       setError(true);
       return;
     }
-    addTransacao(valor, null, tipo);
+    addTransacao(valor, undefined, tipo);
     setShowForm(false);
   }
 
