@@ -6,8 +6,6 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import AdicionarValorMeta from "./AdicionarValorMeta";
-import { useContext } from "react";
-import { MetasContext } from "../../store/metasContext";
 import RemoverValorMeta from "./RemoverValorMeta";
 
 export default function CustomMetasContainer({
@@ -17,9 +15,12 @@ export default function CustomMetasContainer({
   data,
   metaId,
   valor,
+  addValorMeta,
+  removeValorMeta,
+  deleteMeta,
 }) {
   const dataObj = new Date(data);
-  const { deleteMeta } = useContext(MetasContext);
+
   async function handleDelete() {
     await deleteMeta(metaId);
   }
@@ -98,8 +99,14 @@ export default function CustomMetasContainer({
         <p className="text-gray-600 text-sm font-bold">
           <FontAwesomeIcon icon={faCalendarDays} /> Previsto: {formatedData}
         </p>
-        <AdicionarValorMeta metaId={metaId}></AdicionarValorMeta>
-        <RemoverValorMeta metaId={metaId}></RemoverValorMeta>
+        <AdicionarValorMeta
+          addValorMeta={addValorMeta}
+          metaId={metaId}
+        ></AdicionarValorMeta>
+        <RemoverValorMeta
+          removeValorMeta={removeValorMeta}
+          metaId={metaId}
+        ></RemoverValorMeta>
       </div>
     </div>
   );

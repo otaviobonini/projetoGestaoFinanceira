@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { CategoriasContext } from "../../store/categoriasContext";
 import ConfirmModal from "../ConfirmModal";
 
 export default function CategoriasContainers({
@@ -9,9 +8,9 @@ export default function CategoriasContainers({
   orcamento,
   gasto,
   id,
+  deleteCategoria,
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
-  const { deleteCategoria } = useContext(CategoriasContext);
   async function handleDelete() {
     await deleteCategoria(id);
   }

@@ -1,12 +1,13 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Skeleton from "../Skeleton";
-import { TransactionContext } from "../../store/transactionsContext";
-import { CategoriasContext } from "../../store/categoriasContext";
+import { useTransacoes } from "../../hooks/useTransacoes";
+import { useCategorias } from "../../hooks/useCategorias";
+
 export default function VisaoGastosTotais() {
-  const { transacoes, loading } = useContext(TransactionContext);
-  const { categorias } = useContext(CategoriasContext);
+  const { transacoes, loading } = useTransacoes();
+  const { categorias } = useCategorias();
   const dataAtual = new Date();
   const mesAtual = dataAtual.getMonth();
   const orcamentoTotal = categorias

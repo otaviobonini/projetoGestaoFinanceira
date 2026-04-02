@@ -1,16 +1,13 @@
 import { useState, useRef } from "react";
-import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { CategoriasContext } from "../../store/categoriasContext";
 import { createPortal } from "react-dom";
 
-export default function NovaCategoria() {
+export default function NovaCategoria({ addCategoria }) {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(false);
   const categoriaRef = useRef();
   const orcamentoRef = useRef();
-  const { addCategoria } = useContext(CategoriasContext);
 
   function handleSubmit() {
     setError(false);

@@ -1,15 +1,15 @@
 import CategoriasContainers from "../components/categorias/CategoriasContainers";
 import NovaCategoria from "../components/categorias/NovaCategoria";
-import { useContext } from "react";
+import { useTransacoes } from "../hooks/useTransacoes";
 import VisaoGastosTotais from "../components/categorias/VisaoGastosTotais";
-import { TransactionContext } from "../store/transactionsContext";
-import { CategoriasContext } from "../store/categoriasContext";
 import { useGastosPorCategoria } from "../hooks/useGastosPorCategoria";
+import { useCategorias } from "../hooks/useCategorias";
 
 export default function CategoriasPage() {
-  const { transacoes } = useContext(TransactionContext);
-  const { categorias } = useContext(CategoriasContext);
+  const { transacoes } = useTransacoes();
+  const { categorias, addCategoria, deleteCategoria } = useCategorias();
   const gastosPorCategoria = useGastosPorCategoria(transacoes);
+
   return (
     <div className="  h-full py-16 bg-gray-100 px-8">
       <h1 className="text-2xl font-bold">Categorias</h1>
@@ -29,10 +29,11 @@ export default function CategoriasPage() {
               nomeCategoria={categoria.nome}
               orcamento={categoria.orcamento}
               gasto={gasto}
+              deleteCategoria={deleteCategoria}
             />
           );
         })}
-        <NovaCategoria></NovaCategoria>
+        <NovaCategoria addCategoria={addCategoria}></NovaCategoria>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import Skeleton from "../Skeleton";
 import { TransactionContext } from "../../store/transactionsContext";
 
 export default function DateFilter() {

@@ -1,16 +1,15 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import { MetasContext } from "../../store/metasContext";
 import { createPortal } from "react-dom";
+import { useMetas } from "../../hooks/useMetas";
 
-export default function RemoverValorMeta({ metaId }) {
+export default function RemoverValorMeta({ metaId, removeValorMeta }) {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(false);
   const removerValorMetaRef = useRef();
-  const { removeValorMeta, metas } = useContext(MetasContext);
+  const { metas } = useMetas();
 
-  // Pegando o valor atual da meta para validação (opcional)
   const metaAtual = metas.find((m) => m.id === Number(metaId));
 
   function handleSubmit() {
@@ -26,7 +25,10 @@ export default function RemoverValorMeta({ metaId }) {
       return;
     }
 
-    removeValorMeta(valorRemover, Number(metaId));
+    removeValorMeta({
+      id: Number(metaId),
+      valor: Number(valorRemover),
+    });
 
     removerValorMetaRef.current.value = "";
     setShowForm(false);

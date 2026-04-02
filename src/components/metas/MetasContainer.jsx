@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
 import Skeleton from "../Skeleton";
-import { MetasContext } from "../../store/metasContext";
+import { useMetas } from "../../hooks/useMetas";
 export default function MetasContainer({ name, value, icon, color }) {
-  const { loading } = useContext(MetasContext);
+  const { loading } = useMetas();
   return (
     <div className="bg-white shadow-sm rounded-lg flex gap-4 py-4 px-6 items-center  ml-2 h-24 ">
       <div className={`text-${color}-500`}>

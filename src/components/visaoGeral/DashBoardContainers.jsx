@@ -4,17 +4,18 @@ import {
   faArrowDown,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import calcularEconomiaMensal from "../../utils/economiaMensal";
 import calcularPorcentagemMes from "../../utils/porcentagemAoMes";
 import Loading from "../Loading";
+import { useMetas } from "../../hooks/useMetas";
+import { useTransacoes } from "../../hooks/useTransacoes";
 import { TransactionContext } from "../../store/transactionsContext";
-import { MetasContext } from "../../store/metasContext";
 
 export default function DashboardContainers() {
-  const { transacoes, mes, loading } = useContext(TransactionContext);
-  const { metas } = useContext(MetasContext);
+  const { transacoes, loading } = useTransacoes();
+  const { mes } = useContext(TransactionContext);
+  const { metas } = useMetas();
   const { economiaAtual } = calcularEconomiaMensal(transacoes, mes);
   const {
     totalMes: totalGanho,

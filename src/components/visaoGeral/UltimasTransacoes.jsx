@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { TransactionContext } from "../../store/transactionsContext";
+import { useTransacoes } from "../../hooks/useTransacoes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function UltimasTransacoes() {
-  const { transacoes, deleteTransacao } = useContext(TransactionContext);
+  const { transacoes, deleteTransacao } = useTransacoes();
 
   function handleDelete(id) {
     deleteTransacao(id);

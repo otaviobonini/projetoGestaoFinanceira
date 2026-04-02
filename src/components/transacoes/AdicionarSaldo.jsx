@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
-import { useContext } from "react";
-import { TransactionContext } from "../../store/transactionsContext";
+import { useTransacoes } from "../../hooks/useTransacoes";
 import { createPortal } from "react-dom";
 export default function NovoSaldo() {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(false);
-  const { addTransacao } = useContext(TransactionContext);
+  const { addTransacao } = useTransacoes();
   const valorRef = useRef();
   function handleSubmit() {
     setError(false);

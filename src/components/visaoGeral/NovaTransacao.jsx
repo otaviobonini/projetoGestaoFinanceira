@@ -1,13 +1,12 @@
 import { useState, useRef } from "react";
-import { useContext } from "react";
-import { TransactionContext } from "../../store/transactionsContext";
-import { CategoriasContext } from "../../store/categoriasContext";
+import { useTransacoes } from "../../hooks/useTransacoes";
+import { useCategorias } from "../../hooks/useCategorias";
 import { createPortal } from "react-dom";
 export default function NovaTransacao() {
   const [showForm, setShowForm] = useState(false);
   const [tipo, setTipo] = useState("entrada");
-  const { addTransacao } = useContext(TransactionContext);
-  const { categorias } = useContext(CategoriasContext);
+  const { addTransacao } = useTransacoes();
+  const { categorias } = useCategorias();
   const [valor, setValor] = useState(0);
   const [error, setError] = useState(false);
 

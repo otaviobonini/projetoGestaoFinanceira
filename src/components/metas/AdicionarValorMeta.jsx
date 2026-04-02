@@ -1,14 +1,12 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { MetasContext } from "../../store/metasContext";
 import { createPortal } from "react-dom";
 
-export default function AdicionarValorMeta({ metaId }) {
+export default function AdicionarValorMeta({ metaId, addValorMeta }) {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(false);
   const guardarValorMetaRef = useRef();
-  const { addValorMeta } = useContext(MetasContext);
 
   function handleSubmit() {
     setError(false);
@@ -19,7 +17,10 @@ export default function AdicionarValorMeta({ metaId }) {
       return;
     }
 
-    addValorMeta(valorGuardado, Number(metaId));
+    addValorMeta({
+      id: Number(metaId),
+      valor: Number(valorGuardado),
+    });
 
     guardarValorMetaRef.current.value = "";
     setShowForm(false);

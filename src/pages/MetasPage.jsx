@@ -7,12 +7,12 @@ import {
   faCircleCheck,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
 import Loading from "../components/Loading";
-import { MetasContext } from "../store/metasContext";
+import { useMetas } from "../hooks/useMetas";
 
 export default function MetasPage() {
-  const { metas, loading } = useContext(MetasContext);
+  const { metas, loading, removeValorMeta, addMeta, addValorMeta, deleteMeta } =
+    useMetas();
 
   const metasConcluidas = metas.filter(
     (meta) => Number(meta.valorGuardado) >= Number(meta.objetivo),
@@ -76,11 +76,14 @@ export default function MetasPage() {
               data={meta.dataConclusao}
               metaId={meta.id}
               valor={meta.valorGuardado}
+              addValorMeta={addValorMeta}
+              removeValorMeta={removeValorMeta}
+              deleteMeta={deleteMeta}
             />
           ))
         )}
 
-        <NovaMeta />
+        <NovaMeta addMeta={addMeta} />
       </div>
     </div>
   );

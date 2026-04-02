@@ -1,18 +1,15 @@
 import { useState, useRef } from "react";
-import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { MetasContext } from "../../store/metasContext";
 import { createPortal } from "react-dom";
 
-export default function NovaMeta() {
+export default function NovaMeta({ addMeta }) {
   const [showForm, setShowForm] = useState(false);
   const nomeMetaRef = useRef();
   const descMetaRef = useRef();
   const objetivoMetaRef = useRef();
   const dataConclusaoMetaRef = useRef();
   const [error, setError] = useState(false);
-  const { addMeta } = useContext(MetasContext);
 
   function handleSubmit() {
     setError(false);
@@ -24,7 +21,7 @@ export default function NovaMeta() {
       return setError(true);
     }
 
-    addMeta(nome, desc, obj, data);
+    addMeta({ nome, desc, obj, data });
     setShowForm(false);
   }
 
