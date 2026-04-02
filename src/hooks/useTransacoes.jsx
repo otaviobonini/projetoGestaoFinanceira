@@ -22,7 +22,7 @@ export function useTransacoes() {
     } finally {
       setLoading(false);
     }
-  }, [setTransacoes, token]);
+  }, [setTransacoes, token, setLoading]);
 
   const addTransacao = useCallback(
     async (valor, categoriaNome, tipo, descricao) => {
