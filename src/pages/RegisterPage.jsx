@@ -43,7 +43,7 @@ export default function RegisterPage() {
   return (
     <div className="bg-gray-100 min-h-screen flex  items-center justify-center">
       <div className="flex overflow-hidden rounded-xl  shadow-md">
-        <div className="bg-blue-500 text-white p-10 flex flex-col justify-center max-w-sm">
+        <div className="hidden md:flex bg-blue-500 text-white p-10  flex-col justify-center max-w-sm">
           <h1 className="text-3xl text-center font-bold mb-2">Bem-vindo!</h1>
           <p className="opacity-90">Crie sua conta para continuar</p>
         </div>

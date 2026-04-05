@@ -44,8 +44,8 @@ export default function LoginPage() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="flex rounded-lg overflow-hidden shadow-lg">
-        <div className="bg-blue-500 text-white p-10 flex flex-col justify-center max-w-sm">
+      <div className="flex  rounded-lg overflow-hidden shadow-lg ">
+        <div className="hidden md:flex bg-blue-500 text-white p-10  flex-col justify-center max-w-sm">
           <h1 className="text-3xl font-bold mb-2">Bem-vindo de volta!</h1>
           <p className="opacity-90">Faça seu acesso com uma conta existente</p>
         </div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-green-400 rounded-2xl p-2 text-white mb-4 hover:bg-green-500 transition duration-300"
+            className="bg-green-400 rounded-xl p-2 text-white mb-4 hover:bg-green-500 transition duration-300"
           >
             {isSubmitting ? "Enviando" : "Entrar"}
           </button>
