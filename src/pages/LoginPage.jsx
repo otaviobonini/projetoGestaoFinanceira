@@ -72,7 +72,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-green-400 rounded-xl p-2 text-white mb-4 hover:bg-green-500 transition duration-300"
+            className="bg-green-400 rounded-2xl p-2 text-white mb-4 hover:bg-green-500 transition duration-300"
           >
             {isSubmitting ? "Enviando" : "Entrar"}
           </button>
