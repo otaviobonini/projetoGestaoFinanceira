@@ -11,9 +11,9 @@ export default function CategoriasPage() {
   const gastosPorCategoria = useGastosPorCategoria(transacoes);
 
   return (
-    <div className="  h-full py-16 bg-gray-100 px-8">
-      <div className="md:px-8">
-        <h1 className="text-2xl font-bold">Categorias</h1>
+    <div className="  h-full py-16 bg-gray-100 md:px-8">
+      <div className="px-8">
+        <h1 className="text-2xl  font-bold">Categorias</h1>
         <div className=" space-x-80">
           <p className="text-gray-700 text-lg ">
             Gerencie suas categorias de gastos e o seu orçamento mensal
