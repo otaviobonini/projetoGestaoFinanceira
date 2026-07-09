@@ -13,22 +13,20 @@ O Bonini Finances possibilita ao usuário acompanhar sua vida financeira de form
 ## Teste agora
 
 - Conta de teste:
-- Email: teste@gmail.com  
+- Email: teste@gmail.com
 - Senha: 123456
 
 link projeto https://projeto-gestao-financeira-pz6d.vercel.app/
 
 ---
 
-
 ## Preview
 
-[![Screenshot-20.png](https://i.postimg.cc/brFJvc9P/Screenshot-20.png)](https://postimg.cc/9wZVxkkg)
-[![Screenshot-21.png](https://i.postimg.cc/kGDJzY3h/Screenshot-21.png)](https://postimg.cc/fSnQ0Kbx)
-[![Screenshot-22.png](https://i.postimg.cc/WzKNvms1/Screenshot-22.png)](https://postimg.cc/Mf720QcC)
-[![Screenshot-23.png](https://i.postimg.cc/5NY9mrm4/Screenshot-23.png)](https://postimg.cc/LnSM9N7w)
-[![Screenshot-24.png](https://i.postimg.cc/pXwWcB0B/Screenshot-24.png)](https://postimg.cc/ykTCk0CJ)
-
+[![Screenshot-1.jpg](https://i.postimg.cc/595WwkR7/Screenshot-1.jpg)](https://postimg.cc/CdK20JYk)
+[![Screenshot-2.jpg](https://i.postimg.cc/W1HBNRd3/Screenshot-2.jpg)](https://postimg.cc/87LK40BQ)
+[![Screenshot-3.jpg](https://i.postimg.cc/nzvgGC02/Screenshot-3.jpg)](https://postimg.cc/G8mXch0T)
+[![Screenshot-4.jpg](https://i.postimg.cc/BQZk2ZDb/Screenshot-4.jpg)](https://postimg.cc/3W6tTTtQ)
+[![Screenshot-5.jpg](https://i.postimg.cc/qvSFf8Fj/Screenshot-5.jpg)](https://postimg.cc/4YvPVhs9)
 
 ---
 
@@ -36,57 +34,57 @@ link projeto https://projeto-gestao-financeira-pz6d.vercel.app/
 
 **Autenticação**
 
-* Cadastro e login de usuários
-* Autenticação via token JWT com expiração
-* Proteção de rotas privadas
+- Cadastro e login de usuários
+- Autenticação via token JWT com expiração
+- Proteção de rotas privadas
 
 **Dashboard**
 
-* Exibição do saldo atual
-* Indicador de economia mensal
-* Gráfico de gastos por categoria (formato donut)
-* Listagem das últimas transações
+- Exibição do saldo atual
+- Indicador de economia mensal
+- Gráfico de gastos por categoria (formato donut)
+- Listagem das últimas transações
 
 **Categorias**
 
-* Criação, listagem e exclusão de categorias
-* Controle de orçamento por categoria
-* Barra de progresso (gasto vs orçamento)
+- Criação, listagem e exclusão de categorias
+- Controle de orçamento por categoria
+- Barra de progresso (gasto vs orçamento)
 
 **Metas**
 
-* Criação de metas financeiras
-* Adição e remoção de valores
-* Acompanhamento de progresso
-* Indicador de conclusão
+- Criação de metas financeiras
+- Adição e remoção de valores
+- Acompanhamento de progresso
+- Indicador de conclusão
 
 **Transações**
 
-* Registro de entradas e saídas
-* Associação com categorias
-* Campo de descrição opcional
+- Registro de entradas e saídas
+- Associação com categorias
+- Campo de descrição opcional
 
 **Filtro por mês**
 
-* Visualização de dados históricos
+- Visualização de dados históricos
 
 **Interface**
 
-* Layout responsivo (mobile e desktop)
-* Feedback visual com skeletons, modais e mensagens de erro
+- Layout responsivo (mobile e desktop)
+- Feedback visual com skeletons, modais e mensagens de erro
 
 ---
 
 ## Tecnologias Utilizadas
 
-* React 18
-* React Router DOM
-* Context API
-* Chart.js
-* TailwindCSS
-* Vite
-* FontAwesome
-* React Hook Form
+- React 18
+- React Router DOM
+- Context API
+- Chart.js
+- TailwindCSS
+- Vite
+- FontAwesome
+- React Hook Form
 
 ---
 
@@ -94,9 +92,9 @@ link projeto https://projeto-gestao-financeira-pz6d.vercel.app/
 
 ### Pré-requisitos
 
-* Node.js 18 ou superior
-* npm ou yarn
-* Backend da aplicação em execução
+- Node.js 18 ou superior
+- npm ou yarn
+- Backend da aplicação em execução
 
 ### Passos
 
@@ -154,6 +152,5 @@ A aplicação consome uma API REST. Todos os endpoints (exceto autenticação) r
 | DELETE | /metas/:id              | Remover meta      |
 | PATCH  | /metas/add-value/:id    | Adicionar valor   |
 | PATCH  | /metas/remove-value/:id | Remover valor     |
-
 
 Projeto desenvolvido para fins de estudo e portfólio.
