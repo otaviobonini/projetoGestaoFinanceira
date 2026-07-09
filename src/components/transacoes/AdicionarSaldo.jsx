@@ -30,8 +30,14 @@ export default function NovoSaldo() {
       </button>{" "}
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50 px-4">
-            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+          <div
+            onClick={() => setShowForm(false)}
+            className="fixed inset-0 flex items-center justify-center bg-black/50  z-50 px-4"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg"
+            >
               {" "}
               <div className="py-2">
                 <h1 className="font-semibold text-lg">Adicionar Valor</h1>

@@ -36,9 +36,9 @@ export default function CategoriasContainers({
 
   return (
     <>
-      <div className="bg-white w-80 p-4 rounded-lg shadow-md">
+      <div className="bg-white w-full md:min-h-64 p-4 rounded-lg shadow-md">
         <div className="flex justify-between items-start ">
-          <h1 className="text-2xl font-bold mb-4"> {nomeCategoria}</h1>
+          <h1 className="text-2xl font-bold mt-12 mb-4"> {nomeCategoria}</h1>
           <button
             onClick={() => setShowConfirm(true)}
             className="bg-red-500 text-white h-fit  w-fit p-2 rounded-md hover:bg-red-700"
@@ -46,7 +46,7 @@ export default function CategoriasContainers({
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
         </div>
-        <p className="text-gray-500 mb-2">
+        <p className="text-gray-500 ">
           Orçamento: R${" "}
           {Number(orcamento).toLocaleString("pt-BR", {
             minimumFractionDigits: 2,

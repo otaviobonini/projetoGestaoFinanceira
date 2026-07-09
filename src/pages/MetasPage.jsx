@@ -45,7 +45,7 @@ export default function MetasPage() {
     },
   ];
   return (
-    <div className="bg-gray-100 w-full min-h-screen py-16 px-4 md:px-8">
+    <div className="bg-gray-100 w-full min-h-screen py-16 px-4 md:px-16">
       <h1 className="text-2xl font-bold">Minhas Metas</h1>
       <p className="text-gray-600">
         Acompanhe seus objetivos e realize seus sonhos.

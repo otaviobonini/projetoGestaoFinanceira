@@ -22,7 +22,7 @@ export default function DashboardPage() {
   return (
     <>
       {" "}
-      <div className="bg-gray-100 w-full flex-1  h-full py-16 px-4">
+      <div className="bg-gray-100 w-full flex-1  h-full py-20 px-6 md:py-16 md:pl-16  ">
         {" "}
         <h1 className="text-2xl font-bold">Dashboard</h1>{" "}
         <p className="text-gray-700 text-lg">
@@ -64,24 +64,38 @@ export default function DashboardPage() {
               }}
             />
           </div>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
             {labels.map((label, i) => (
               <div key={label} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div
+                  className="flex items-center gap-3 rounded-xl border px-3 py-2 bg-gray-50"
+                  style={{
+                    borderColor: colors[i],
+                  }}
+                >
                   <span
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: colors[i % colors.length] }}
-                  ></span>
-                  <div className="space-x-4">
-                    <span className="text-gray-500">{label}</span>
-                    <span className="font-semibold">{porcentagens[i]}</span>
-                  </div>
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: colors[i] }}
+                  />
+
+                  <span className="font-medium text-gray-700">{label}</span>
+
+                  <span
+                    className="ml-auto rounded-full px-2 py-1 text-xs font-semibold"
+                    style={{
+                      color: colors[i],
+                    }}
+                  >
+                    {porcentagens[i]}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>{" "}
-        <UltimasTransacoes />{" "}
+        <div className="w-fit mx-auto">
+          <UltimasTransacoes />{" "}
+        </div>
       </div>{" "}
     </>
   );

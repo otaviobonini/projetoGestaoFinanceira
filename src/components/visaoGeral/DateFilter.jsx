@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../store/transactionsContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 export default function DateFilter() {
   const meses = [
@@ -21,32 +23,23 @@ export default function DateFilter() {
     useContext(TransactionContext);
 
   function handleChange(e) {
-    const novoMes = Number(e.target.value);
-    handleMes(novoMes);
+    handleMes(Number(e.target.value));
   }
+
   const mesesComTransacoes = [
     ...new Set(transacoes.map((t) => new Date(t.createdAt).getMonth())),
   ];
 
-  if (mesesComTransacoes.length === 0) return null;
+  if (mesesComTransacoes.length === 0 || loading) return null;
 
   return (
-    !loading && (
+    <div className="inline-flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-sm">
+      <FontAwesomeIcon icon={faCalendar} className="text-gray-500" />
+
       <select
         value={mes}
         onChange={handleChange}
-        className="bg-white 
-    border border-gray-300 
-    rounded-xl 
-    px-4 py-2 
-    font-medium 
-    text-gray-700 
-    shadow-sm
-    hover:border-gray-400
-    
-   
-    cursor-pointer
-  "
+        className="cursor-pointer bg-transparent font-medium text-gray-700 outline-none"
       >
         {mesesComTransacoes.map((mesIndex) => (
           <option key={mesIndex} value={mesIndex}>
@@ -54,6 +47,6 @@ export default function DateFilter() {
           </option>
         ))}
       </select>
-    )
+    </div>
   );
 }

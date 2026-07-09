@@ -27,7 +27,7 @@ export default function NovaMeta({ addMeta }) {
 
   return (
     <>
-      <div className="bg-gray-200 p-4 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300  w-full sm:w-80">
+      <div className="bg-gray-200 p-4 min-h-64 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300  w-full sm:w-80 md:min-w-[600px]">
         <button
           className="bg-white font-medium text-black text-lg py-3 px-4 rounded-full  hover:bg-green-400 transition"
           onClick={() => setShowForm(true)}

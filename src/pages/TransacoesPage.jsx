@@ -24,8 +24,8 @@ export default function TransacoesPage() {
   const saldo = entrada - saida - metasGuardadas;
 
   return (
-    <div className="flex-1 h-full py-16 md:py-16 bg-gray-100 px-4 md:px-8">
-      <h1 className="text-2xl md:text-4xl font-bold">Transações</h1>
+    <div className="flex-1 h-full py-16 md:py-16 bg-gray-100 px-4 md:px-16">
+      <h1 className="text-2xl md:text-3xl font-bold">Transações</h1>
 
       <div className="flex gap-4 flex-col mt-4">
         <p className="text-gray-700 text-sm md:text-lg">

@@ -12,14 +12,18 @@ export default function CategoriasPage() {
 
   return (
     <div className="  h-full py-16 bg-gray-100 px-8">
-      <h1 className="text-2xl font-bold">Categorias</h1>
-      <div className=" space-x-80">
-        <p className="text-gray-700 text-lg ">
-          Gerencie suas categorias de gastos e o seu orçamento mensal
-        </p>
+      <div className="md:px-8">
+        <h1 className="text-2xl font-bold">Categorias</h1>
+        <div className=" space-x-80">
+          <p className="text-gray-700 text-lg ">
+            Gerencie suas categorias de gastos e o seu orçamento mensal
+          </p>
+        </div>
       </div>
-      <VisaoGastosTotais></VisaoGastosTotais>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 py-8  ">
+      <div className="px-8 mt-8 w-full md:w-1/2">
+        <VisaoGastosTotais></VisaoGastosTotais>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12 p-12  ">
         {categorias.map((categoria) => {
           const gasto = gastosPorCategoria[categoria.id] || 0;
           return (

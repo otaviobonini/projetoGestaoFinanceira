@@ -27,7 +27,7 @@ export default function NovaCategoria({ addCategoria }) {
 
   return (
     <>
-      <div className="bg-gray-200 p-4 flex flex-col items-center max-w-fit  justify-center rounded-2xl border-2 border-dashed border-gray-300">
+      <div className="bg-gray-200 p-4 flex flex-col items-center  w-full md:min-h-64  justify-center rounded-2xl border-2 border-dashed border-gray-300">
         <button
           className="bg-white font-medium text-black text-lg py-3 px-4 rounded-full hover:bg-green-400"
           onClick={() => setShowForm(true)}
@@ -41,8 +41,14 @@ export default function NovaCategoria({ addCategoria }) {
       </div>
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center  bg-black/40 backdrop-blur-md z-50 px-4 ">
-            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+          <div
+            onClick={() => setShowForm(false)}
+            className="fixed inset-0 flex items-center justify-center  bg-black/50  z-50 px-4 "
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg"
+            >
               <h1 className="font-semibold text-lg py-2">Nova categoria.</h1>
               <p>Crie uma nova categoria e defina um orçamento.</p>
 

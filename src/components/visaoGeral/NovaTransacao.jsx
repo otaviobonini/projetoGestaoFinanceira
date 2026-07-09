@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { useTransacoes } from "../../hooks/useTransacoes";
 import { useCategorias } from "../../hooks/useCategorias";
 import { createPortal } from "react-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 export default function NovaTransacao() {
   const [showForm, setShowForm] = useState(false);
   const [tipo, setTipo] = useState("entrada");
@@ -45,12 +47,18 @@ export default function NovaTransacao() {
         onClick={() => setShowForm(!showForm)}
       >
         {" "}
-        + Nova Transação{" "}
+        <FontAwesomeIcon icon={faAdd}></FontAwesomeIcon> Nova transação
       </button>{" "}
       {showForm &&
         createPortal(
-          <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md z-50 px-4">
-            <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+          <div
+            onClick={() => setShowForm(false)}
+            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-4"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg"
+            >
               {" "}
               <div className="py-2">
                 <h1 className="font-semibold text-lg ">Nova Transação.</h1>

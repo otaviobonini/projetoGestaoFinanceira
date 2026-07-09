@@ -41,7 +41,7 @@ export default function VisaoGastosTotais() {
     textColor = "text-red-500";
   }
   return (
-    <div className="p-8 mt-4 bg-white  max-w-3xl  rounded-2xl">
+    <div className="p-8  bg-white    rounded-2xl">
       <p className="uppercase font-semibold  text-gray-500">
         Visão mensal total
       </p>
